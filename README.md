@@ -1,5 +1,15 @@
 # Homerun
 
+## Features
+
+* Balance expenses with the use of group-driven accounts
+* Log expenses for future reference
+* Display graphs to follow your budget
+
+## Notes
+
+Homerun's code is written in English, but the user interface is currently hardcoded to French. Would be awesome to set up a translation system... Maybe in the future!
+
 ## Installation
 1. Copy `config/config.sample.php` to `config/config.php`
 2. Edit the variables inside `config/config.php` to match your own configuration

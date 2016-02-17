@@ -1,5 +1,5 @@
 <div class="header-menu fixed">
-    <span class="title">Statistiques mensuelles</span>
+    <span class="title-pull">Statistiques mensuelles</span>
     <span class="pull-right">
     <?php
     $accounts = Array();

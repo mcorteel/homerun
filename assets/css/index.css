@@ -150,6 +150,10 @@ h3.title .btn, .well h3 .btn{
     font-weight:normal;
     background-color:#EEE;
 }
+.header-menu .title-pull{
+    display: inline-block;
+    font-size: 22px;
+}
 
 .modal-body .alert{
     margin-bottom:0;

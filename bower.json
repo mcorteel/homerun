@@ -1,0 +1,28 @@
+{
+  "name": "homerun",
+  "authors": [
+    "Maxime Corteel <mcorteel@gmail.com>"
+  ],
+  "description": "A household management app",
+  "main": "",
+  "moduleType": [],
+  "license": "APGL",
+  "homepage": "http://github.com/mcorteel/homerun",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "assets/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "jquery": "^2.2.0",
+    "font-awesome": "^4.5.0",
+    "bootstrap-datepicker": "^1.6.0",
+    "Chart.js": "^2.0",
+    "typeahead.js": "^0.11.1"
+  }
+}

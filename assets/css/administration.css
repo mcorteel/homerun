@@ -1,0 +1,199 @@
+/*****************************************************************************
+ * Copyright 2013-2016 Maxime Corteel                                        *
+ *                                                                           *
+ * This file is part of Homerun                                              *
+ *                                                                           *
+ * Home Helper is free software: you can redistribute it and/or              *
+ * modify it under the terms of the GNU Affero General Public License as     *
+ * published by the Free Software Foundation, either version 3 of the        *
+ * License, or (at your option) any later version.                           *
+ *                                                                           *
+ * This program is distributed in the hope that it will be useful,           *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of            *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             *
+ * GNU Affero General Public License for more details.                       *
+ *                                                                           *
+ * You should have received a copy of the GNU Affero General Public License  *
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
+ *****************************************************************************/
+
+/**
+ * GENERAL TAB
+ **/
+table.table td p{
+    margin:0;
+}
+
+.with-table p{
+    cursor:pointer;
+    margin:0;
+}
+.with-table table.table{
+    margin:0.5em 5% 0;
+    width:90%;
+}
+
+.form-actions{
+    clear:both;
+}
+
+.header-menu{
+    margin-top:-14px;
+}
+
+.backups li{
+    list-style-type:none;
+    line-height:25px;
+}
+.backups li a.btn{
+    line-height:16px;
+    width:16px;
+    padding:0;
+}
+
+form.well fieldset{
+    margin-top:20px;
+}
+
+li.member{
+    margin:0;
+}
+li.member label.checkbox{
+    padding-top:0;
+    margin-bottom:0;
+}
+
+.rte-toolbar{
+    margin-bottom:5px;
+}
+.news-content{
+    display:inline-block;
+    width:100%;
+    border:1px solid #CCC;
+    padding:3px;
+    border-radius:3px;
+}
+.news-content iframe{
+    width:100%;
+}
+
+#user-groups-list{
+    padding:0;
+    margin:0;
+}
+#user-groups-list li{
+    list-style-type:none;
+    padding:5px;
+    border-radius:5px;
+    transition:all 0.5s;
+}
+#user-groups-list li:hover{
+    background-color:#F3F3F3;
+    cursor:default;
+    transition:all 0.5s;
+}
+
+#user-groups-list li i{
+    position:relative;
+        top:3px;
+    color:#888;
+    cursor:pointer;
+}
+#user-groups-list li i:hover{
+    color:#333;
+}
+.events{
+    margin:-8px;
+}
+
+.events li{
+    list-style-type:none;
+    border-bottom:1px solid #DDD;
+    cursor:default;
+    padding:2px 5px;
+    font-size:12px;
+}
+.events li:hover{
+    background-color:#EEE;
+}
+.events .date{
+    display:block;
+    float:left;
+    width:13ex;
+}
+.events .event{
+    display:block;
+    margin-left:13ex;
+}
+
+.folder-view li{
+    padding:0px 3px;
+    border-radius:3px;
+    cursor:default;
+}
+.folder-view li:hover{
+    background-color:#EEE;
+}
+
+.table.users td.st{
+    width:8ex;
+    text-align:center;
+    white-space:nowrap;
+}
+.table.users td.st i.fa-lock{
+    color:#BBB;
+}
+.table.users td.st i.fa-times{
+    color:red;
+}
+.table.users td.st i.fa-check{
+    color:green;
+}
+.table.users td.st i.fa-question-circle{
+    color:#888;
+}
+
+/**
+ * LOG TAB
+ **/
+
+.log-menu .pagination{
+    display:inline-block;
+    float:right;
+    margin:0;
+}
+ 
+.admin-log{
+    list-style-type:none;
+    margin:-10px -8px -15px;
+}
+
+.admin-log li{
+    border-bottom:1px solid #DDD;
+    padding:0 5px;
+    line-height:25px;
+    cursor:default;
+}
+.admin-log li:hover, .admin-log li.active{
+    background-color:#EEE;
+}
+
+.admin-log li input{
+    margin-right:1ex;
+    position:relative;
+        top:2px;
+}
+
+#modal-log .form-horizontal{
+    padding:0 15px;
+}
+
+#modal-log .form-group{
+    border-bottom:1px solid #DDD;
+    height:40px;
+    margin-top:6px;
+    margin-bottom:0;
+}
+#modal-log .modal-footer{
+    border-top:none;
+}

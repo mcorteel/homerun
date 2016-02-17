@@ -1,0 +1,15 @@
+{
+    "name": "Homerun",
+    "description": "Application de gestion domestique",
+    "launch_path": "/",
+    "appcache_path": "/homerun.appcache",
+    "icons": {
+        "128": "/img/homerun-128.png",
+        "64": "/img/homerun-64.png"
+    },
+    "developer": {
+        "name": "Maxime Corteel",
+        "url": "http://github.com/mcorteel/homerun"
+    },
+    "default_locale": "fr"
+}

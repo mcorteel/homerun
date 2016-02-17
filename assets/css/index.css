@@ -1,0 +1,301 @@
+/*****************************************************************************
+ * Copyright 2013-2016 Maxime Corteel                                        *
+ *                                                                           *
+ * This file is part of Homerun                                              *
+ *                                                                           *
+ * Home Helper is free software: you can redistribute it and/or              *
+ * modify it under the terms of the GNU Affero General Public License as     *
+ * published by the Free Software Foundation, either version 3 of the        *
+ * License, or (at your option) any later version.                           *
+ *                                                                           *
+ * This program is distributed in the hope that it will be useful,           *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of            *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             *
+ * GNU Affero General Public License for more details.                       *
+ *                                                                           *
+ * You should have received a copy of the GNU Affero General Public License  *
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
+ *****************************************************************************/
+
+@font-face{
+    font-family:Oxygen;
+    src:url(/assets/fonts/Oxygen.ttf);
+}
+
+body {
+    font-family: Oxygen;
+}
+
+.navbar img{
+    height:1em;
+    vertical-align:top;
+}
+.navbar .navbar-right{
+    padding-right:15px;
+}
+
+.btn, .form-control, .input-group-addon, .tooltip>*, .progress, .alert, .datepicker.dropdown-menu, .datepicker table tr td span, .datepicker table tr td, .datepicker table tr th{
+    border-radius:2px;
+}
+
+.modal-content{
+    border-radius:2px;
+}
+
+.alert, .modal-header, .modal-body{
+    padding:10px;
+}
+
+#main-info{
+    padding:3px 10px;
+    overflow:hidden;
+    text-align:center;
+    margin:auto;
+    position:fixed;
+        left:50%;
+        top:10px;
+    transform:translateX(-50%);
+        max-width:50%;
+    display:none;
+    z-index:1000;
+}
+
+.main-container{
+    margin-top:60px;
+    padding:0;
+    width:100%;
+}
+
+h2{
+    padding:0 5px;
+    margin:0 0 10px;
+    font-size:24px;
+}
+
+.main-container h3{
+    font-size:20px;
+    font-weight:bold;
+    border-bottom:1px solid #DDD;
+    padding:5px 0;
+    margin:0 0 15px 0;
+}
+
+h3.title .btn, .well h3 .btn{
+    position:relative;
+        top:-4px;
+}
+
+.main-container h4{
+    margin:5px 0;
+    font-variant:small-caps;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.header-menu{
+    background-color:#DDD;
+    border-bottom:1px solid #CCC;
+    padding:5px 15px;
+    min-height:45px;
+    margin:0;
+}
+
+.tab-content {
+    border-width:0px 1px 1px 1px;
+    border-color:#DDD;
+    border-style:solid;
+    margin-top:0;
+    background-color:#FFF;
+}
+.tab-content .row{
+    margin: 0 -15px;
+}
+.tab-content .table{
+    margin: 0;
+}
+.tab-content h3, .tab-content legend{
+    padding: 0 10px;
+    margin-top: 5px;
+}
+.tab-content .header-menu{
+    margin:0 0 5px;
+    z-index:1000000000000;
+}
+.main-container>.header-menu{
+    margin:-10px -15px 0;
+}
+.tab-content .alert{
+    margin:0 5px 10px;
+    position: relative;
+        top: 5px;
+}
+.header-menu.fixed{
+    width:100%;
+    left:0;
+    margin-top:-9px;
+    margin-left:0;
+    margin-right:0;
+    position:fixed;
+    z-index:1000;
+}
+
+.header-menu h3, .header-menu .title{
+    display:block;
+    margin:5px -15px -5px;
+    padding:5px 15px;
+    font-size: 20px;
+    text-align: center;
+    border-top: 1px solid #555;
+    border-bottom:none;
+    font-weight:normal;
+    background-color:#EEE;
+}
+
+.modal-body .alert{
+    margin-bottom:0;
+}
+.modal-footer{
+    margin-top:0;
+}
+
+.form-actions{
+    padding:10px;
+    margin-top:10px;
+    background-color:#F5F5F5;
+    min-height:55px;
+}
+
+#modal-debug{
+    position:fixed;
+        top:0;
+        left:0;
+    width:100%;
+    height:100%;
+    overflow:auto;
+    display:none;
+    z-index:10000;
+    background-color:#333;
+    color:#FFF;
+}
+#modal-debug.active{
+    display:block;
+}
+
+#modal-debug .close{
+    font-size:28px;
+    position:fixed;
+        top:10px;
+        right:10px;
+}
+#modal-debug ul{
+    padding:0;
+    margin:0;
+}
+#modal-debug li{
+    list-style-type:none;
+    font-family:monospace;
+}
+#modal-debug li .caller{
+    display:inline-block;
+    vertical-align:top;
+    white-space:nowrap;
+    width:20ex;
+    overflow:hidden;
+}
+
+.header-menu .btn.menu{
+    display:none;   
+}
+
+tr.selected {
+    background-color: #EEE;
+}
+
+@media (max-width:400px){
+  body.menu-contained .navbar-header{
+    display:none!important;
+  }
+  body.menu-contained .main-container{
+    margin-top:8px!important;
+  }
+  body.menu-contained .navbar-fixed-top{
+    position:relative;
+    margin-bottom:0;
+  }
+  body.menu-contained .navbar{
+    min-height:0;
+    height:auto;
+  }
+  .header-menu .btn.menu{
+    display:inline-block;
+  }
+}
+@media (max-width:768px){
+    .modal{
+        padding:0;
+    }
+
+    .modal-dialog{
+        margin:0;
+    }
+    
+    #main-info{
+            max-width:90%;
+    }
+}
+
+#addInputFixed{
+    display:none;
+    font-size:45px;
+    padding:2px 2px 0 0;
+    border-radius:0px 10px 0px 0px;
+    background-color:#EEE;
+    color:#66BC79;
+    opacity:0.3;
+    position:fixed;
+        bottom:0;
+        left:0;
+    z-index:100;
+    height:50px;
+    width:50px;
+    line-height:50px;
+    text-align:center;
+    vertical-align:middle;
+    cursor:pointer;
+}
+#addInputFixed:hover{
+    opacity:1;
+}
+/*********** DATEPICKER ************/
+
+.date-control{
+    height:0!important;
+    display:block;
+    overflow:hidden!important;
+}
+
+.date-container{
+    overflow:hidden;
+    transition:all 0.5s;
+    color: #555;
+    background-color: #FFF;
+    background-image: none;
+    border: 1px solid #CCC;
+    border-radius: 2px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.date-container.active{
+    border-color: #66AFE9;
+    outline: 0px none;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+}
+
+.date-container.display{
+    height:auto;
+    transition:all 0.5s;
+}
+
+.date-container .datepicker{
+    margin:auto;
+}

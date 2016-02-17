@@ -1,0 +1,192 @@
+/*****************************************************************************
+ * Copyright 2013-2016 Maxime Corteel                                        *
+ *                                                                           *
+ * This file is part of Homerun                                              *
+ *                                                                           *
+ * Home Helper is free software: you can redistribute it and/or              *
+ * modify it under the terms of the GNU Affero General Public License as     *
+ * published by the Free Software Foundation, either version 3 of the        *
+ * License, or (at your option) any later version.                           *
+ *                                                                           *
+ * This program is distributed in the hope that it will be useful,           *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of            *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             *
+ * GNU Affero General Public License for more details.                       *
+ *                                                                           *
+ * You should have received a copy of the GNU Affero General Public License  *
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
+ *****************************************************************************/
+
+.header-menu .btn{
+    display:inline-block;
+    width:36px;
+}
+
+.table tbody tr.active td{
+    background-color:#DDD;
+}
+
+.table tbody tr td:first-child {
+    width: 40px;
+}
+
+.add-input{
+    display:none;
+}
+.add-input .wait{
+    text-align:center;
+    font-size:20px;
+}
+
+.add-input h3, .add-input .form-actions{
+    margin-left:-15px;
+    margin-right:-15px;
+    padding:5px 15px;
+}
+
+.add-input .form-actions{
+    min-height:40px;
+    padding-top:10px;
+}
+.add-input .form-actions .col-md-offset-4{
+    padding-left:10px;
+}
+
+.pageNumber{
+    float:left;
+    font-size:18px;
+    margin:5px 10px 0 0;
+    cursor:pointer;
+}
+.pageNumber:hover{
+    color:#555;
+}
+
+ul.list li{
+    font-size:20px;
+    padding:5px;
+    margin-left:20px;
+    list-style-type:none;
+}
+
+.message{
+    text-align:center;
+    font-style:italic;
+    padding:15px!important;
+    font-size:20px;
+}
+
+table.table{
+    margin-bottom:0;
+}
+
+table, .add-input h3, .content{
+    margin-top:40px;
+}
+
+table.down{
+    margin-top:80px;
+}
+/**
+ * Accounts management
+ **/
+
+.edition, .wait{
+    display:none;
+}
+
+.tags{
+    padding:0;
+    margin:0;
+  max-width: 300px;
+}
+.tags li{
+    list-style-type:none;
+    margin:5px 0;
+}
+
+.icons{
+    padding:0;
+    margin:0;
+    text-align:center;
+}
+.icons li{
+    display:inline-block;
+    width:auto;
+    margin:2px;
+    list-style-type:none;
+}
+
+/**
+ * Transfers management
+ **/
+
+.header-menu select{
+    display:inline-block;
+    width:150px;
+}
+
+.transfers .actions{
+    text-align:center;
+}
+
+.header-menu{
+    box-shadow:1px 1px 2px 1px #CCC;
+}
+
+/**
+ * Search
+ **/
+
+.search{
+    display:none;
+    border-top:1px solid #CCC;
+    background-color:#DDD;
+    margin:5px -15px -5px;
+    padding:5px 15px 5px;
+    min-height:45px;
+}
+
+.search .col-md-6:first-child{
+    padding-left:0;
+}
+.search .col-md-6:last-child{
+    padding-right:0;
+}
+
+.search .fa-hand-o-left:before{
+    font-size:20px;
+}
+
+@media (max-width: 992px){
+    .search .col-md-6{
+        padding-left:0;
+        padding-right:0;
+    }
+    
+    table.down{
+        margin-top:110px;
+    }
+    
+    .container{
+        padding:0;
+    }
+    
+    .search .fa-hand-o-left:before{
+        content:"\f0a6";
+    }
+    
+    .add-input .form-actions .col-md-offset-4{
+        padding-left:0;
+    }
+}
+
+.search .input-group{
+    width:100%;
+}
+
+.search .result{
+    padding-top:5px;
+    font-size:16px;
+    min-height:30px;
+}

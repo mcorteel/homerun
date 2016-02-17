@@ -1,0 +1,16 @@
+AddType application/x-web-app-manifest+json .webapp
+
+AddType text/cache-manifest .appcache
+AddType application/json .json
+
+ExpiresByType text/cache-manifest "access plus 0 seconds"
+
+Options -Indexes
+
+RewriteEngine On
+RewriteBase /
+
+RewriteRule ^app/([a-z]+)$ application.php?app=$1 [L]
+RewriteRule ^([a-z]+)\.html$ index.php?page=$1
+RewriteRule ^([a-z]+)/([a-z]+)\.html$ index.php?page=$1&subPage=$2
+RewriteRule ^([a-z]+)/([a-z]+)/([0-9]+)$ index.php?page=$1&subPage=$2&id=$3

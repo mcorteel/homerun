@@ -51,11 +51,8 @@ case "view":
         </div>
 
         <table class="table table-condensed table-hover">
-            <thead>
-                <tr><th></th><th><i class="fa fa-calendar"></i></th><th><i class="fa fa-question-circle"></i></th><th>€</th><?php if(!$account->isLog()) { ?><th><i class="fa fa-user"></i></th><?php } ?></tr>
-            </thead>
             <tbody>
-                <td colspan=5 class="message"><i class="fa fa-spinner fa-pulse"></i> Un instant...</td>
+                <td class="message"><i class="fa fa-spinner fa-pulse"></i> Un instant...</td>
             </tbody>
         </table>
         

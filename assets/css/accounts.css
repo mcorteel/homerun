@@ -76,12 +76,17 @@ ul.list li{
     font-size:20px;
 }
 
-table.table{
-    margin-bottom:0;
-}
-
 table, .add-input h3, .content{
     margin-top:40px;
+}
+
+table.table{
+    margin-bottom:0;
+    margin-top: 35px;
+}
+
+table.table tr:first-child td{
+    border-top: none;
 }
 
 table.down{

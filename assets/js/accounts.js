@@ -268,11 +268,9 @@ function deleteInput(id) {
 }
 
 function sendInput() {
-    $(".add-input .iAmount").val(parseFloat($(".add-input .iAmount").val()));
     $(".add-input .alert").remove();
     var data = new Object();
     data.iAmount = parseFloat($(".add-input .iAmount").val().replace(",", "."));
-    debug("iAmount: " + data.iAmount);
     data.action = $(".add-input .iId").val() == 0 ? "create" : "edit";
     data.iType = $(".add-input .iType .btn.active input").val();
     data.iId = $(".add-input .iId").val();

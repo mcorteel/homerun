@@ -21,7 +21,6 @@
 class Account extends DatabaseObject
 {
 
-
     private $group = NULL;
     private $tags = NULL;
     
@@ -102,10 +101,6 @@ class Account extends DatabaseObject
             }
         }
         return $statsOrder[$this->getId()];
-    }
-    
-    public function getDBUpdateRequest() {
-        return "INSERT INTO " . ENV_TABLES_PREFIX . "inputs (iAccount, iType, iUser, iAmount, iDate, iNotes) (SELECT {$this->getId()} AS iAccount, iType, iUser, iAmount, iDate, iNotes FROM " . ENV_TABLES_PREFIX . "inputs_" . strtolower(preg_replace("#[^A-Za-z]#", "", $this->aName)) . ");";
     }
     
 }

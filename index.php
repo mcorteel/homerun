@@ -171,18 +171,6 @@ if(!User::getAuth())
                         {
                             echo "<li" . ($_GET['page'] == "accounts" && $_GET['subPage'] == "view" && $_GET['id'] == $account->getId() ? " class=\"active\"" : "") . " data-account-id=\"{$account->getId()}\"" . ($accountsToggle[$account->getId()] ? "" : " style=\"display:none;\"") . "><a href=\"accounts/view/{$account->getId()}\"><i class=\"fa fa-money fa-fw\"></i> {$account->aName}</a></li>";
                         }
-                        if(User::getAuth()->hasGroup("apps"))
-                        {
-                            ?>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-navicon fa-fw"></i> Applications <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="app/notes"><i class="fa fa-fw fa-file-text-o"></i> Notes</a></li>
-                                    <li><a href="app/chrono"><i class="fa fa-fw fa-clock-o"></i> Chronomètre</a></li>
-                                </ul>
-                            </li>
-                            <?php
-                        }
                         echo "<li" . ($_GET['page'] == "statistics" ? " class=\"active\"" : "") . "><a href=\"statistics.html\"><i class=\"fa fa-bar-chart-o fa-fw\"></i> Statistiques</a></li>";
                         if(User::getAuth()->hasGroup("admin"))
                         {

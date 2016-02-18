@@ -31,7 +31,7 @@ if(isset($_POST['account'])) {
         $data['error'] = "Vous n'avez pas accès à ce compte";
         send($data);
     }
-    $data['account'] = $account->aTable;
+    $data['account'] = $account->getId();
 }
 
 switch($_POST['action']) {
@@ -226,7 +226,7 @@ switch($_POST['action']) {
             $line['iIcon'] = $account->getIconOf($t);
             array_push($list, $line);
         }
-        $request = $database->prepare("SELECT SUM(iAmount) AS total, COUNT(iAmount) AS n FROM " . ENV_TABLES_PREFIX . "inputs WHERE iAccount = :account $rCondition;");
+        $request = $database->prepare("SELECT SUM(iAmount) AS total, COUNT(iAmount) AS n FROM " . ENV_TABLES_PREFIX . "inputs WHERE $rCondition;");
         $request->execute($rArray);
         if($line = $request->fetch()) {
             $data['total'] = toEuros($line['total']);

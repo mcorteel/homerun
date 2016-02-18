@@ -172,10 +172,6 @@ if(!User::getAuth())
                             echo "<li" . ($_GET['page'] == "accounts" && $_GET['subPage'] == "view" && $_GET['id'] == $account->getId() ? " class=\"active\"" : "") . " data-account-id=\"{$account->getId()}\"" . ($accountsToggle[$account->getId()] ? "" : " style=\"display:none;\"") . "><a href=\"accounts/view/{$account->getId()}\"><i class=\"fa fa-money fa-fw\"></i> {$account->aName}</a></li>";
                         }
                         echo "<li" . ($_GET['page'] == "statistics" ? " class=\"active\"" : "") . "><a href=\"statistics.html\"><i class=\"fa fa-bar-chart-o fa-fw\"></i> Statistiques</a></li>";
-                        if(User::getAuth()->hasGroup("admin"))
-                        {
-                            echo "<li><a href=\"javascript:toggleDebug();\"><i class=\"fa fa-tty\"></i> Debug</a></li>";
-                        }
                     }
                     ?>
                 </ul>

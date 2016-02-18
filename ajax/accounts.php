@@ -279,10 +279,13 @@ switch($_POST['action']) {
             }
         }
         $account->aName = $_POST['aName'];
+        $account->aIcon = $_POST['aIcon'];
         if($account->isLog()) {
             $account->aLimit = (int)$_POST['aLimit'];
         }
         $account->save();
+        $data['account'] = $account->getValues();
+        $data['account']['aId'] = $account->getId();
         $data['status'] = 1;
         break;
     case "set-home-display":
@@ -297,7 +300,9 @@ switch($_POST['action']) {
         $account->aName = $_POST['aName'];
         $account->aLog = $_POST['aLog'];
         $account->aLimit = $_POST['aLimit'];
+        $account->aIcon = $_POST['aIcon'];
         $account->create();
+        User::getAuth()->getAccounts(true);
         foreach($_POST['tags'] as $t) {
             $tag = new DatabaseObject("tags", Array("tName", "tAccount", "tIcon"));
             $tag->tName = $t['tName'];

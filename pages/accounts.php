@@ -156,7 +156,7 @@ case "manage":
                 $accounts = User::getAuth()->getAccounts(true);
                 foreach($accounts as $account) {
                     if(User::getAuth()->isAdminOf($account->getGroup()->gName)) {
-                        echo "<li><a href=\"{$account->getId()}\">{$account->aName}</a></li>";
+                        echo "<li><a href=\"{$account->getId()}\"><i class=\"fa fa-{$account->aIcon} fa-fw\"></i> {$account->aName}</a></li>";
                     }
                 }
                 if(!sizeof($account)) {
@@ -164,8 +164,8 @@ case "manage":
                 }
                 ?>
                 <h4>Actions</h4>
-                <li><a href="0">Créer un compte</a></li>
-                <li><a href="-1">Créer un journal</a></li>
+                <li><a href="0"><i class="fa fa-plus fa-fw"></i> Créer un compte</a></li>
+                <li><a href="-1"><i class="fa fa-plus fa-fw"></i> Créer un journal</a></li>
             </ul>
         </div>
         <div class="col-md-9">
@@ -183,7 +183,12 @@ case "manage":
                 <div class="form-group">
                     <label class="control-label col-md-2">Nom</label>
                     <div class="controls col-md-10">
-                        <input type="text" class="form-control aName" />
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default btn-icon aIcon" type="button" data-value="money"><i class="fa fa-money fa-fw"></i></button>
+                            </div>
+                            <input type="text" class="form-control aName" />
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">

@@ -25,7 +25,7 @@ class Account extends DatabaseObject
     private $tags = NULL;
     
     public function __construct() {
-        parent::__construct("accounts", Array("aName", "aGroup", "aLog", "aLimit"));
+        parent::__construct("accounts", Array("aName", "aIcon", "aGroup", "aLog", "aLimit"));
     }
     
     public function loadOtherFromRow($row) {

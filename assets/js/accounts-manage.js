@@ -22,11 +22,7 @@ function addTag(icon, name, opt_id, opt_fixed)
     var id = opt_id || 0;
     var fixed = opt_fixed || false;
     
-    $(".tags li:not(.tag)").before('<li class="tag input-group" data-id="' + id + '"><span class="input-group-btn"><button class="btn btn-default tIcon" data-value="' + icon + '"><i class="fa fa-' + icon + ' fa-fw"></i></button></span><input type="text" class="form-control tName" value="' + name + '" placeholder="Nom du tag" />' + (fixed ? '' : '<span class="input-group-btn"><button class="btn btn-danger" title="Supprimer ce tag"><i class="fa fa-trash-o fa-fw"></i></button></span>') + '</li>');
-    $(".tags li.tag:last .tIcon").click(function(){
-        $(this).addClass("active");
-        $("#modal-icons").modal("show");
-    });
+    $(".tags li:not(.tag)").before('<li class="tag input-group" data-id="' + id + '"><span class="input-group-btn"><button class="btn btn-default btn-icon tIcon" data-value="' + icon + '"><i class="fa fa-' + icon + ' fa-fw"></i></button></span><input type="text" class="form-control tName" value="' + name + '" placeholder="Nom du tag" />' + (fixed ? '' : '<span class="input-group-btn"><button class="btn btn-danger" title="Supprimer ce tag"><i class="fa fa-trash-o fa-fw"></i></button></span>') + '</li>');
     $(".tags li.tag:last .btn-danger").click(function(){
         $(this).closest("li").remove();
     });
@@ -53,11 +49,13 @@ function init()
             $(".actions").show();
             $("#aLimit").hide();
             $(".tags li.tag").remove();
-            $.post("ajax/accounts.php", {action: "get-account", account: id}, function(data){
+            $.post("ajax/accounts.php", {action: "get-account", account: id}, function(data) {
                 ajaxDebug(data);
+                $(".aName").val(data.account.aName);
+                $(".aIcon").data("value", data.account.aIcon);
+                $(".aIcon i").attr("class", "fa fa-fw fa-" + data.account.aIcon);
                 $("#aLimit").toggle(data.account.aLog == 1);
                 $(".aLimit").val(data.account.aLimit);
-                $(".aName").val(data.account.aName);
                 $(".aGroup").val(data.account.aGroup).prop("disabled", true);
                 for(var i in data.tags) {
                     addTag(data.tags[i].tIcon, data.tags[i].tName, data.tags[i].tId, true);
@@ -67,11 +65,12 @@ function init()
                 $(".btn-primary").text("Modifier").unbind("click").click(function(){
                     var data = {
                         aName: $(".aName").val(),
+                        aIcon: $(".aIcon").data("value"),
                         aLimit: $(".aLimit").val(),
                         account: $(".menu li.active a").attr("href"),
                         tags: [],
                         action: "edit-account"
-                    }
+                    };
                     $(".tags li.tag").each(function(){
                         data.tags.push({
                             tId: $(this).attr("data-id"),
@@ -83,7 +82,8 @@ function init()
                         ajaxDebug(data);
                         if(data.status) {
                             info("Le compte a bien été modifié");
-                            $(".menu li.active a").text($(".aName").val());
+                            $(".menu li.active a").html("<i class=\"fa fa-" + data.account.aIcon + " fa-fw\"></i> " + data.account.aName);
+                            $("#navbar li[data-account-id=" + data.account.aId + "] a").html("<i class=\"fa fa-" + data.account.aIcon + " fa-fw\"></i> " + data.account.aName);
                             init();
                         } else {
                             error("Erreur");
@@ -95,6 +95,8 @@ function init()
             $(".edition h3").text(id == 0 ? "Créer un compte" : "Créer un journal");
             $(".actions").hide();
             $(".aName").val("");
+            $(".aIcon").data("value", "money");
+            $(".aIcon i").attr("class", "fa fa-fw fa-money");
             $(".aLimit").val(0);
             $(".aGroup").prop("disabled", false);
             $(".tags li.tag").remove();
@@ -103,6 +105,7 @@ function init()
             $(".btn-primary").text("Créer").unbind("click").click(function(){
                 var data = {
                     aName: $(".aName").val(),
+                    aIcon: $(".aIcon").data("value"),
                     aGroup: $(".aGroup").val(),
                     aLog: $(".aLog").prop("checked") ? 1 : 0,
                     aLimit: $(".aLimit").val(),
@@ -117,7 +120,8 @@ function init()
                     info("after request");
                     if(data.status) {
                         info("Le compte a bien été créé");
-                        $(".menu h4:last").before("<li><a href=\"" + data.account.aId + "\">" + data.account.aName + "</a></li>");
+                        $(".menu h4:last").before("<li><a href=\"" + data.account.aId + "\"><i class=\"fa fa-" + data.account.aIcon + " fa-fw\"></i> " + data.account.aName + "</a></li>");
+                        $("#navbar li[data-account-id]:last").after("<li data-account-id=\"" + data.account.aId + "\"><a href=\"accounts/view/" + data.account.aId + "\"><i class=\"fa fa-" + data.account.aIcon + " fa-fw\"></i> " + data.account.aName + "</a></li>");
                         init();
                     } else {
                         error("Erreur");
@@ -133,12 +137,18 @@ function init()
 $(document).ready(function(){
     init();
     $(".cancel").click(init);
+    
+    $("body").on("click", ".btn-icon", function(){
+        $(this).addClass("active");
+        $("#modal-icons").modal("show");
+    });
+    
     $("#modal-icons .btn").click(function(){
-        $(".tags .btn.active").attr("data-value", $(this).attr("data-value")).find("i").attr("class", "fa fa-" + $(this).attr("data-value") + " fa-fw");
+        $(".btn-icon.active").data("value", $(this).data("value")).find("i").attr("class", "fa fa-" + $(this).data("value") + " fa-fw");
         $("#modal-icons").modal("hide");
     });
     $("#modal-icons").on("hide.bs.modal", function(){
-        $(".tags .btn.active").removeClass("active");
+        $(".btn-icon.active").removeClass("active");
     });
     $(".add-tag").click(function(){
         addTag("money", "", 0);
@@ -150,6 +160,7 @@ $(document).ready(function(){
                 ajaxDebug(data);
                 if(data.status) {
                     $(".menu li.active").remove();
+                    $("#navbar li[data-account-id=" + data.account.aId +  "]").remove();
                     info("Le compte a bien été supprimé");
                     init();
                 } else {

@@ -162,14 +162,12 @@ if(!User::getAuth())
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <?php
-                    if(User::getAuth())
-                    {
+                    if(User::getAuth()) {
                         echo "<li" . ($_GET['page'] == "home" ? " class=\"active\"" : "") . "><a href=\"home.html\"><i class=\"fa fa-home fa-fw\"></i> Accueil</a></li>";
                         $accounts = User::getAuth()->getAccounts(true);
                         $accountsToggle = is_array(User::getAuth()->getOption("home_accounts_toggle")) ? User::getAuth()->getOption("home_accounts_toggle") : Array();
-                        foreach($accounts as $account)
-                        {
-                            echo "<li" . ($_GET['page'] == "accounts" && $_GET['subPage'] == "view" && $_GET['id'] == $account->getId() ? " class=\"active\"" : "") . " data-account-id=\"{$account->getId()}\"" . ($accountsToggle[$account->getId()] ? "" : " style=\"display:none;\"") . "><a href=\"accounts/view/{$account->getId()}\"><i class=\"fa fa-money fa-fw\"></i> {$account->aName}</a></li>";
+                        foreach($accounts as $account) {
+                            echo "<li" . ($_GET['page'] == "accounts" && $_GET['subPage'] == "view" && $_GET['id'] == $account->getId() ? " class=\"active\"" : "") . " data-account-id=\"{$account->getId()}\"" . ($accountsToggle[$account->getId()] ? "" : " style=\"display:none;\"") . "><a href=\"accounts/view/{$account->getId()}\"><i class=\"fa fa-{$account->aIcon} fa-fw\"></i> {$account->aName}</a></li>";
                         }
                         echo "<li" . ($_GET['page'] == "statistics" ? " class=\"active\"" : "") . "><a href=\"statistics.html\"><i class=\"fa fa-bar-chart-o fa-fw\"></i> Statistiques</a></li>";
                     }

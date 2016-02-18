@@ -198,16 +198,17 @@ switch($_POST['action']) {
             array_push($rCondition, "iNotes LIKE :notes");
             $rArray['notes'] = "%$searchString%";
         }
+        array_push($rCondition, "iAccount = :account");
+        $rArray['account'] = $account->getId();
         $rCondition = arrayToString($rCondition, "", " AND ");
         debug($rCondition);
         debug(print_r($rArray, true));
-        $rArray['account'] = $account->getId();
         //Run search
         $database = new Database();
         if($account->isLog()) {
-            $r = "SELECT " . ENV_TABLES_PREFIX . "inputs.* FROM " . ENV_TABLES_PREFIX . "inputs WHERE iAccount = :account AND $rCondition ORDER BY iDate DESC, iId DESC LIMIT 0, 100;";
+            $r = "SELECT " . ENV_TABLES_PREFIX . "inputs.* FROM " . ENV_TABLES_PREFIX . "inputs WHERE $rCondition ORDER BY iDate DESC, iId DESC LIMIT 0, 100;";
         } else {
-            $r = "SELECT " . ENV_TABLES_PREFIX . "inputs.*, uDisplayName FROM " . ENV_TABLES_PREFIX . "inputs INNER JOIN " . ENV_TABLES_PREFIX . "users ON iUser = uId WHERE iAccount = :account $rCondition ORDER BY iDate DESC, iId DESC LIMIT 0, 100;";
+            $r = "SELECT " . ENV_TABLES_PREFIX . "inputs.*, uDisplayName FROM " . ENV_TABLES_PREFIX . "inputs INNER JOIN " . ENV_TABLES_PREFIX . "users ON iUser = uId WHERE $rCondition ORDER BY iDate DESC, iId DESC LIMIT 0, 100;";
         }
         if(!$request = $database->prepare($r)) {
             debug("prepare error");

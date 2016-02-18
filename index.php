@@ -167,7 +167,7 @@ if(!User::getAuth())
                         $accounts = User::getAuth()->getAccounts(true);
                         $accountsToggle = is_array(User::getAuth()->getOption("home_accounts_toggle")) ? User::getAuth()->getOption("home_accounts_toggle") : Array();
                         foreach($accounts as $account) {
-                            echo "<li" . ($_GET['page'] == "accounts" && $_GET['subPage'] == "view" && $_GET['id'] == $account->getId() ? " class=\"active\"" : "") . " data-account-id=\"{$account->getId()}\"" . ($accountsToggle[$account->getId()] ? "" : " style=\"display:none;\"") . "><a href=\"accounts/view/{$account->getId()}\"><i class=\"fa fa-{$account->aIcon} fa-fw\"></i> {$account->aName}</a></li>";
+                            echo "<li" . ($_GET['page'] == "accounts" && $_GET['subPage'] == "view" && $_GET['id'] == $account->getId() ? " class=\"active\"" : "") . " data-account-id=\"{$account->getId()}\"" . ($accountsToggle[$account->getId()] != "0" ? "" : " style=\"display:none;\"") . "><a href=\"accounts/view/{$account->getId()}\"><i class=\"fa fa-{$account->aIcon} fa-fw\"></i> {$account->aName}</a></li>";
                         }
                         echo "<li" . ($_GET['page'] == "statistics" ? " class=\"active\"" : "") . "><a href=\"statistics.html\"><i class=\"fa fa-bar-chart-o fa-fw\"></i> Statistiques</a></li>";
                     }

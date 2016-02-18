@@ -26,7 +26,7 @@ class Account extends DatabaseObject
     private $tags = NULL;
     
     public function __construct() {
-        parent::__construct("accounts", Array("aName", "aGroup", "aTable", "aLog", "aLimit"));
+        parent::__construct("accounts", Array("aName", "aGroup", "aLog", "aLimit"));
     }
     
     public function loadOtherFromRow($row) {
@@ -102,6 +102,10 @@ class Account extends DatabaseObject
             }
         }
         return $statsOrder[$this->getId()];
+    }
+    
+    public function getDBUpdateRequest() {
+        return "INSERT INTO " . ENV_TABLES_PREFIX . "inputs (iAccount, iType, iUser, iAmount, iDate, iNotes) (SELECT {$this->getId()} AS iAccount, iType, iUser, iAmount, iDate, iNotes FROM " . ENV_TABLES_PREFIX . "inputs_" . strtolower(preg_replace("#[^A-Za-z]#", "", $this->aName)) . ");";
     }
     
 }

@@ -1,13 +1,14 @@
 <div class="header-menu fixed">
-    <span class="title-pull">Statistiques mensuelles</span>
+    <span class="title-pull">Statistiques</span>
+    <button class="btn btn-default menu pull-right"><i class="fa fa-reorder"></i></button>
     <span class="pull-right">
-    <?php
-    $accounts = Array();
-    foreach(User::getAuth()->getAccounts() as $account) {
-        $accounts[$account->getId()] = $account->aName;
-    }
-    echo UI::select("account", $accounts, array_key_exists('id', $_GET) ? $_GET['id'] : 0, "account", true);
-    ?>
+        <?php
+        $accounts = Array();
+        foreach(User::getAuth()->getAccounts() as $account) {
+            $accounts[$account->getId()] = $account->aName;
+        }
+        echo UI::select("account", $accounts, array_key_exists('id', $_GET) ? $_GET['id'] : 0, "account", true);
+        ?>
     </span>
 </div>
 <div class="row">

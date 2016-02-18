@@ -43,8 +43,8 @@ if(!User::getAuth()) {
                     }
                     echo "</tr></thead><tbody>";
                     if($account->isLog()) {
-                        $req = $database->prepare("SELECT SUM(iAmount) AS sum, iType FROM " . ENV_TABLES_PREFIX . "inputs_{$account->aTable} GROUP BY iType;");
-                        $req->execute();
+                        $req = $database->prepare("SELECT SUM(iAmount) AS sum, iType FROM " . ENV_TABLES_PREFIX . "inputs WHERE iAccount = :account GROUP BY iType;");
+                        $req->execute(Array("account" => $account->getId()));
                         while($row = $req->fetch()) {
                             $sums[$row['iType']] = $row['sum'];
                         }
@@ -66,8 +66,8 @@ if(!User::getAuth()) {
                                 $sums[$user->getId()][$id] = 0;
                             }
                             //Storing inputs
-                            $req = $database->prepare("SELECT SUM(iAmount) AS sum, iType FROM " . ENV_TABLES_PREFIX . "inputs_{$account->aTable} WHERE iUser = :uId GROUP BY iType;");
-                            $req->execute(Array("uId" => $user->getId()));
+                            $req = $database->prepare("SELECT SUM(iAmount) AS sum, iType FROM " . ENV_TABLES_PREFIX . "inputs WHERE iAccount = :account AND iUser = :uId GROUP BY iType;");
+                            $req->execute(Array("account" => $account->getId(), "uId" => $user->getId()));
                             while($row = $req->fetch()) {
                                 $sums[$user->getId()][$row['iType']] = $row['sum'];
                             }
@@ -142,8 +142,8 @@ if(!User::getAuth()) {
                 $account->loadFromRow($line);
                 echo "<div data-account-id=\"{$account->getId()}\"" . (!$accountsToggle[$account->getId()] ? " style=\"display:none;\"" : "") . "><h4>{$account->aName}</h4><ul class=\"fa-ul last-entries\">";
                 if($account->isLog()) {
-                    $req = $database->prepare("SELECT * FROM " . ENV_TABLES_PREFIX . "inputs_{$account->aTable} INNER JOIN " . ENV_TABLES_PREFIX . "tags ON tId = iType ORDER BY iDate DESC LIMIT 0, 5;");
-                    $req->execute();
+                    $req = $database->prepare("SELECT * FROM " . ENV_TABLES_PREFIX . "inputs INNER JOIN " . ENV_TABLES_PREFIX . "tags ON tId = iType WHERE iAccount = :account ORDER BY iDate DESC LIMIT 0, 5;");
+                    $req->execute(Array("account" => $account->getId()));
                     while($row = $req->fetch()) {
                         echo "<li title=\"Dans <em>{$row['tName']}</em>\"><i class=\"fa fa-li fa-" . $row['tIcon'] . "\"></i>" . ($row['iNotes'] ? $row['iNotes'] : "<em>Sans description</em>") . "<span class=\"pull-right\">" . toEuros($row['iAmount'], true) . "</span></li>";
                     }
@@ -152,8 +152,8 @@ if(!User::getAuth()) {
                     }
                     echo "</ul>";
                 } else {
-                    $req = $database->prepare("SELECT * FROM " . ENV_TABLES_PREFIX . "inputs_{$account->aTable} INNER JOIN " . ENV_TABLES_PREFIX . "tags ON tId = iType INNER JOIN " . ENV_TABLES_PREFIX . "users ON uId = iUser ORDER BY iDate DESC LIMIT 0, 5;");
-                    $req->execute();
+                    $req = $database->prepare("SELECT * FROM " . ENV_TABLES_PREFIX . "inputs INNER JOIN " . ENV_TABLES_PREFIX . "tags ON tId = iType INNER JOIN " . ENV_TABLES_PREFIX . "users ON uId = iUser WHERE iAccount = :account ORDER BY iDate DESC LIMIT 0, 5;");
+                    $req->execute(Array("account" => $account->getId()));
                     while($row = $req->fetch()) {
                         echo "<li title=\"Dans <em>{$row['tName']}</em>, par {$row['uDisplayName']}\"><i class=\"fa fa-li fa-" . $row['tIcon'] . "\"></i>" . ($row['iNotes'] ? $row['iNotes'] : "<em>Sans description</em>") . "<span class=\"pull-right\">" . toEuros($row['iAmount'], true) . "</span></li>";
                     }

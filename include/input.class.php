@@ -23,9 +23,12 @@ class Input extends DatabaseObject
 
     private $user = NULL;
     private $receiver = NULL;
+    private $account = NULL;
     
-    public function __construct($table) {
-        parent::__construct("inputs_$table", Array("iType", "iUser", "iAmount", "iDate", "iNotes"));
+    public function __construct($account) {
+        parent::__construct("inputs", Array("iAccount", "iType", "iUser", "iAmount", "iDate", "iNotes"));
+        $this->iAccount = $account->getId();
+        $this->account = $account;
     }
     
     public function loadOtherFromRow($row) {
@@ -33,6 +36,10 @@ class Input extends DatabaseObject
             $this->user = new User();
             $this->user->loadFromRow($row);
         }
+    }
+    
+    public function getAccount() {
+        return $this->account;
     }
     
     public function getUser() {

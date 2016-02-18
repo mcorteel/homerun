@@ -38,8 +38,8 @@ switch($_POST['action']) {
     case "create":
         //Determination of previous line ID
         $database = new Database();
-        $request = $database->prepare("SELECT iId FROM " . ENV_TABLES_PREFIX . "inputs_{$account->aTable} WHERE iDate <= :date ORDER BY iDate DESC, iId DESC LIMIT 0, 1;");
-        $request->execute(Array("date" => $_POST['iDate']));
+        $request = $database->prepare("SELECT iId FROM " . ENV_TABLES_PREFIX . "inputs WHERE iAccount = :account AND iDate <= :date ORDER BY iDate DESC, iId DESC LIMIT 0, 1;");
+        $request->execute(Array("account" => $account->getId(), "date" => $_POST['iDate']));
         if($line = $request->fetch()) {
             debug("Got previous ID #{$line['iId']}");
             $data['prevId'] = $line['iId'];
@@ -48,16 +48,16 @@ switch($_POST['action']) {
             debug("No previous ID");
             $data['prevId'] = 0;
         }
-        $request = $database->prepare("SELECT COUNT(*) AS c FROM " . ENV_TABLES_PREFIX . "inputs_{$account->aTable} WHERE iDate >= :date;");
-        $request->execute(Array("date" => $_POST['iDate']));
+        $request = $database->prepare("SELECT COUNT(*) AS c FROM " . ENV_TABLES_PREFIX . "inputs WHERE iAccount = :account AND iDate >= :date;");
+        $request->execute(Array("account" => $account->getId(), "date" => $_POST['iDate']));
         $line = $request->fetch();
         $data['page'] = ceil($line['c'] / $linesPerPage);
-        $request = $database->prepare("SELECT COUNT(*) AS c FROM " . ENV_TABLES_PREFIX . "inputs_{$account->aTable};");
-        $request->execute();
+        $request = $database->prepare("SELECT COUNT(*) AS c FROM " . ENV_TABLES_PREFIX . "inputs WHERE iAccount = :account;");
+        $request->execute(Array("account" => $account->getId()));
         $line = $request->fetch();
         $data['pagesCount'] = ceil($line['c'] / $linesPerPage);
         //New input creation
-        $input = new Input($account->aTable);
+        $input = new Input($account);
         $input->updateFromForm();
         if($account->isLog()) {
             $input->iUser = NULL;
@@ -74,7 +74,7 @@ switch($_POST['action']) {
         $data['message'] = "Ajouté";
         break;
     case "edit":
-        $input = new Input($account->aTable);
+        $input = new Input($account);
         $input->loadFromId($_POST['iId']);
         $input->updateFromForm();
         $input->save();
@@ -93,7 +93,7 @@ switch($_POST['action']) {
         $data['message'] = "Mis à jour";
         break;
     case "get":
-        $input = new Input($account->aTable);
+        $input = new Input($account);
         $input->loadFromId($_POST['iId']);
         $array = $input->getValues();
         if($account->isLog()) {
@@ -101,6 +101,7 @@ switch($_POST['action']) {
         } else {
             $array['iUser'] = $input->getUser()->uDisplayName;
         }
+        $array['iUserId'] = $input->iUser;
         $array['iId'] = $input->getId();
         $array['iDisplayDate'] = timestampToCompact($input->getDate());
         $array['iIcon'] = $account->getIconOf($input);
@@ -108,7 +109,7 @@ switch($_POST['action']) {
         $data['status'] = 1;
         break;
     case "delete":
-        $input = new Input($account->aTable);
+        $input = new Input($account);
         $input->loadFromId($_POST['iId']);
         $data['iId'] = $input->getId();
         $input->delete();
@@ -119,14 +120,14 @@ switch($_POST['action']) {
         $database = new Database();
         $firstOfPage = ($_POST['pageNumber'] - 1) * $linesPerPage;
         if($account->isLog()) {
-            $request = $database->prepare("SELECT " . ENV_TABLES_PREFIX . "inputs_{$account->aTable}.* FROM " . ENV_TABLES_PREFIX . "inputs_{$account->aTable} ORDER BY iDate DESC, iId DESC LIMIT $firstOfPage, $linesPerPage;");
+            $request = $database->prepare("SELECT " . ENV_TABLES_PREFIX . "inputs.* FROM " . ENV_TABLES_PREFIX . "inputs WHERE iAccount = :account ORDER BY iDate DESC, iId DESC LIMIT $firstOfPage, $linesPerPage;");
         } else {
-            $request = $database->prepare("SELECT " . ENV_TABLES_PREFIX . "inputs_{$account->aTable}.*, uDisplayName FROM " . ENV_TABLES_PREFIX . "inputs_{$account->aTable} INNER JOIN " . ENV_TABLES_PREFIX . "users ON iUser = uId ORDER BY iDate DESC, iId DESC LIMIT $firstOfPage, $linesPerPage;");
+            $request = $database->prepare("SELECT " . ENV_TABLES_PREFIX . "inputs.*, uDisplayName FROM " . ENV_TABLES_PREFIX . "inputs INNER JOIN " . ENV_TABLES_PREFIX . "users ON iUser = uId WHERE iAccount = :account ORDER BY iDate DESC, iId DESC LIMIT $firstOfPage, $linesPerPage;");
         }
-        $request->execute();
+        $request->execute(Array("account" => $account->getId()));
         $list = Array();
         while($line = $request->fetch()) {
-            $t = new Input($account->aTable);
+            $t = new Input($account);
             $t->loadFromRow($line);
             $line['iDisplayDate'] = timestampToCompact($t->getDate());
             if($account->isLog()) {
@@ -138,8 +139,8 @@ switch($_POST['action']) {
             $line['iIcon'] = $account->getIconOf($t);
             array_push($list, $line);
         }
-        $request = $database->prepare("SELECT COUNT(*) AS total FROM " . ENV_TABLES_PREFIX . "inputs_{$account->aTable};");
-        $request->execute();
+        $request = $database->prepare("SELECT COUNT(*) AS total FROM " . ENV_TABLES_PREFIX . "inputs WHERE iAccount = :account;");
+        $request->execute(Array("account" => $account->getId()));
         $line = $request->fetch();
         $data['pagesCount'] = ceil($line['total'] / $linesPerPage);
         $data['list'] = $list;
@@ -200,12 +201,13 @@ switch($_POST['action']) {
         $rCondition = arrayToString($rCondition, "", " AND ");
         debug($rCondition);
         debug(print_r($rArray, true));
+        $rArray['account'] = $account->getId();
         //Run search
         $database = new Database();
         if($account->isLog()) {
-            $r = "SELECT " . ENV_TABLES_PREFIX . "inputs_{$account->aTable}.* FROM " . ENV_TABLES_PREFIX . "inputs_{$account->aTable} WHERE $rCondition ORDER BY iDate DESC, iId DESC LIMIT 0, 100;";
+            $r = "SELECT " . ENV_TABLES_PREFIX . "inputs.* FROM " . ENV_TABLES_PREFIX . "inputs WHERE iAccount = :account AND $rCondition ORDER BY iDate DESC, iId DESC LIMIT 0, 100;";
         } else {
-            $r = "SELECT " . ENV_TABLES_PREFIX . "inputs_{$account->aTable}.*, uDisplayName FROM " . ENV_TABLES_PREFIX . "inputs_{$account->aTable} INNER JOIN " . ENV_TABLES_PREFIX . "users ON iUser = uId WHERE $rCondition ORDER BY iDate DESC, iId DESC LIMIT 0, 100;";
+            $r = "SELECT " . ENV_TABLES_PREFIX . "inputs.*, uDisplayName FROM " . ENV_TABLES_PREFIX . "inputs INNER JOIN " . ENV_TABLES_PREFIX . "users ON iUser = uId WHERE iAccount = :account $rCondition ORDER BY iDate DESC, iId DESC LIMIT 0, 100;";
         }
         if(!$request = $database->prepare($r)) {
             debug("prepare error");
@@ -215,7 +217,7 @@ switch($_POST['action']) {
         }
         $list = Array();
         while($line = $request->fetch()) {
-            $t = new Input($account->aTable);
+            $t = new Input($account);
             $t->loadFromRow($line);
             $line['iDisplayDate'] = timestampToCompact($t->getDate());
             $line['iUser'] = $line['uDisplayName'];
@@ -223,11 +225,11 @@ switch($_POST['action']) {
             $line['iIcon'] = $account->getIconOf($t);
             array_push($list, $line);
         }
-        $request = $database->prepare("SELECT SUM(iAmount) AS total, COUNT(iAmount) AS n FROM " . ENV_TABLES_PREFIX . "inputs_{$account->aTable} WHERE $rCondition;");
+        $request = $database->prepare("SELECT SUM(iAmount) AS total, COUNT(iAmount) AS n FROM " . ENV_TABLES_PREFIX . "inputs WHERE iAccount = :account $rCondition;");
         $request->execute($rArray);
         if($line = $request->fetch()) {
-                $data['total'] = toEuros($line['total']);
-                $data['hits'] = $line['n'];
+            $data['total'] = toEuros($line['total']);
+            $data['hits'] = $line['n'];
         }
         $data['list'] = $list;
         $data['status'] = 1;

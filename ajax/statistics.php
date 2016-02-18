@@ -84,8 +84,8 @@ foreach($tags as $i => $tag) {
 $database = new Database();
 
 while($year < $eYear || $month <= $eMonth) {
-    $request = $database->prepare("SELECT SUM(iAmount) AS sum, iType FROM " . ENV_TABLES_PREFIX . "inputs_{$account->aTable} WHERE MONTH(iDate) = :month AND YEAR(iDate) = :year GROUP BY iType;");
-    $request->execute(Array("month" => $month, "year" => $year));
+    $request = $database->prepare("SELECT SUM(iAmount) AS sum, iType FROM " . ENV_TABLES_PREFIX . "inputs WHERE iAccount = :account AND MONTH(iDate) = :month AND YEAR(iDate) = :year GROUP BY iType;");
+    $request->execute(Array("account" => $account->getId(), "month" => $month, "year" => $year));
     $done = Array();
     while($line = $request->fetch()) {
         array_push($done, $line['iType']);

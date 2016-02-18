@@ -339,7 +339,7 @@ function editInput(id) {
         $(".add-input .date-container").datepicker("update", data.input.iDate.substr(8, 2) + "-" + data.input.iDate.substr(5, 2) + "-" + data.input.iDate.substr(0, 4));
         $(".add-input .iNotes").val(data.input.iNotes);
         $(".add-input .iAmount").val(data.input.iAmount);
-        $(".add-input .iUser").val(data.input.iUser);
+        $(".add-input .iUser").val(data.input.iUserId);
         $(".add-input .iType .btn").removeClass("active");
         $(".add-input .iType .btn").filter(function(){return $(this).find("input").val() == data.input.iType;}).addClass("active");
         $(".add-input .wait").hide();

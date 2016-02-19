@@ -13,7 +13,6 @@
 </div>
 <div class="row">
     <div class="col-md-3">
-        <h3>Options</h3>
         <h4>Séries</h4>
         <div class="form-group">
             <div class="input-group">
@@ -47,7 +46,6 @@
         <ul class="options-series"></ul>
     </div>
     <div class="col-md-9">
-        <h3>Statistiques</h3>
         <div id="diagramContainer">
             <canvas id="diagram" height="170"></canvas>
         </div>

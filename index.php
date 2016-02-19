@@ -156,6 +156,7 @@ if(!User::getAuth()) {
                             echo "<li" . ($_GET['page'] == "accounts" && $_GET['subPage'] == "view" && $_GET['id'] == $account->getId() ? " class=\"active\"" : "") . " data-account-id=\"{$account->getId()}\"" . ($accountsToggle[$account->getId()] != "0" ? "" : " style=\"display:none;\"") . "><a href=\"accounts/view/{$account->getId()}\"><i class=\"fa fa-{$account->aIcon} fa-fw\"></i> {$account->aName}</a></li>";
                         }
                         echo "<li" . ($_GET['page'] == "statistics" ? " class=\"active\"" : "") . "><a href=\"statistics.html\"><i class=\"fa fa-bar-chart-o fa-fw\"></i> Statistiques</a></li>";
+                        echo "<li" . ($_GET['page'] == "shopping" ? " class=\"active\"" : "") . "><a href=\"shopping.html\"><i class=\"fa fa-shopping-cart fa-fw\"></i> Listes</a></li>";
                     }
                     ?>
                 </ul>

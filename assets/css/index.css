@@ -230,6 +230,9 @@ tr.selected {
     min-height:0;
     height:auto;
   }
+  .header-menu{
+    padding:5px;
+  }
   .header-menu .btn.menu{
     display:inline-block;
   }
@@ -244,7 +247,7 @@ tr.selected {
     }
     
     #main-info{
-            max-width:90%;
+        max-width:90%;
     }
 }
 

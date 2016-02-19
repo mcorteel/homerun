@@ -1,0 +1,39 @@
+.content {
+    margin-top:40px;
+}
+
+ul.list {
+    margin: 0;
+/*     padding: 0; */
+}
+ul.list li {
+    font-size: 16px;
+    list-style-type:none;
+}
+
+ul.list li .fa{
+    cursor: pointer;
+}
+ul.list li .fa-square-o{
+    position: relative;
+        right: 2px;
+}
+
+body.shopping-mode .col-md-3, body.shopping-mode nav, body.shopping-mode .header-menu .btn.menu, body.shopping-mode #listColumn h4{
+    display: none!important;
+}
+
+body.shopping-mode .main-container{
+    margin-top: 9px;
+}
+
+body.shopping-mode #listColumn {
+    padding: 5px 10px;
+}
+
+body.shopping-mode .list {
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    border: none;
+}

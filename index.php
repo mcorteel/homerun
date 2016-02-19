@@ -35,8 +35,7 @@ if(isset($_GET['page'])) {
     }
 }
 
-if(!User::getAuth())
-{
+if(!User::getAuth()) {
     $currentPage = "login";
 }
 ?>
@@ -77,34 +76,25 @@ if(!User::getAuth())
             <div class="modal-body">
                 <?php
                 $displayForm = true;
-                if(isset($_POST['change-password']))
-                {
-                    if(crypt($_POST['current-password'], User::getAuth()->uPassword) == User::getAuth()->uPassword)
-                    {
-                        if($_POST['new-password'] == $_POST['repeat-password'])
-                        {
+                if(isset($_POST['change-password'])) {
+                    if(crypt($_POST['current-password'], User::getAuth()->uPassword) == User::getAuth()->uPassword) {
+                        if($_POST['new-password'] == $_POST['repeat-password']) {
                             User::getAuth()->uPassword = crypt($_POST['new-password']);
                             echo UI::info("Votre nouveau mot de passe a bien été enregistré.");
                             $displayForm = false;
                             User::getAuth()->removeOption("reset_password");
                             User::getAuth()->save();
-                        }
-                        else
-                        {
+                        } else {
                             echo UI::error("Les nouveaux mots de passe ne correspondent pas.");
                         }
-                    }
-                    else
-                    {
+                    } else {
                         echo UI::error("Le mot de passe actuel est incorrect.");
                     }
                 }
-                if(isset($_POST['logout']))
-                {
+                if(isset($_POST['logout'])) {
                     include("pages/logout.php");
                 }
-                if($displayForm)
-                {
+                if($displayForm) {
                 ?>
                 <p>Il s'agit de votre première connexion ou votre mot de passe a été réinitialisé par un administrateur. Pour des raisons de sécurité, vous devez donc changer de mot de passe.</p>
                 <div class="form-group">
@@ -131,9 +121,7 @@ if(!User::getAuth())
                 <button type="submit" class="btn btn-default" name="logout"><i class="fa fa-power-off"></i> Déconnexion</button>
             </div>
             <?php
-            }
-            else
-            {
+            } else {
             ?>
             <p style="text-align:center;"><a href="administration.html" class="btn btn-primary"><i class="fa fa-refresh"></i> Recharger la page</a></p>
             </div>
@@ -143,9 +131,7 @@ if(!User::getAuth())
             </form>
         </div></div></div>
     <?php
-    }
-    else
-    {
+    } else {
     ?>
         <!-- Main menu -->
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -175,8 +161,7 @@ if(!User::getAuth())
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <?php
-                    if(User::getAuth())
-                    {
+                    if(User::getAuth()) {
                         ?>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-fw"></i> <?php echo User::getAuth()->uDisplayName; ?> <b class="caret"></b></a>
@@ -190,9 +175,7 @@ if(!User::getAuth())
                             </ul>
                         </li>
                         <?php
-                    }
-                    else
-                    {
+                    } else {
                         ?><li><a href="login.html">Connexion</a></li><?php
                     }
                     ?>

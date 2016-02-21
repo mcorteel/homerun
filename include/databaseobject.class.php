@@ -26,10 +26,10 @@ class DatabaseObject {
     private $idField;
     protected $type;
     
-    public function __construct($table, $fields) {
+    public function __construct($table, $fields, $idField = false) {
         $this->table = ENV_TABLES_PREFIX . $table;
         $this->type = get_class($this);
-        $this->idField = substr($table, 0, 1) . "Id";
+        $this->idField = $idField ? $idField : $table[0] . "Id";
         foreach($fields as $field => $value) {
             if(is_int($field)) {
                 $this->values[$value] = NULL;
@@ -268,7 +268,12 @@ class DatabaseObject {
     }
     
     public function getValues() {
-        return $this->values;
+        $values = Array();
+        foreach($this->values as $field => $value) {
+            $values[$field] = $this->get($field);
+        }
+        $values[$this->idField] = $this->getId();
+        return $values;
     }
     
     public function toArray() {
@@ -297,6 +302,10 @@ class DatabaseObject {
                     $this->set($field, $source["$prefix$field"]);
                 }
             }
+            if(isset($source["$prefix{$this->idField}"])) {
+                $this->id = $source["$prefix{$this->idField}"];
+            }
         }
+        return $source;
     }
 }

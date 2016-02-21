@@ -178,18 +178,29 @@ h3.title .btn, .well h3 .btn{
     overflow:auto;
     display:none;
     z-index:10000;
-    background-color:#333;
+    background-color:rgba(0,0,0,0.9);
     color:#FFF;
 }
 #modal-debug.active{
     display:block;
 }
 
-#modal-debug .close{
+#modal-debug .close, #modal-debug .clear{
     font-size:28px;
     position:fixed;
-        top:10px;
         right:10px;
+    color: #FFF;
+    opacity: 0.8;
+    cursor: pointer;
+}
+#modal-debug .close {
+    top:10px;
+}
+#modal-debug .clear{
+    bottom:10px;
+}
+#modal-debug .close:hover, #modal-debug .clear:hover{
+    opacity: 1;
 }
 #modal-debug ul{
     padding:0;
@@ -199,12 +210,31 @@ h3.title .btn, .well h3 .btn{
     list-style-type:none;
     font-family:monospace;
 }
+#modal-debug li.error{
+    color: #FF5526;
+}
+#modal-debug li.warning{
+    color: #FFDA33;
+}
 #modal-debug li .caller{
     display:inline-block;
     vertical-align:top;
     white-space:nowrap;
-    width:20ex;
+    width:auto;
+    color: #AAA;
     overflow:hidden;
+}
+
+#modal-icons .icons{
+    padding:0;
+    margin:0;
+    text-align:center;
+}
+#modal-icons .icons li{
+    display:inline-block;
+    width:auto;
+    margin:2px;
+    list-style-type:none;
 }
 
 .header-menu .btn.menu{

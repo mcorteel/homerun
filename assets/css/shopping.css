@@ -2,24 +2,77 @@
     margin-top:40px;
 }
 
-ul.list {
-    margin: 0;
-/*     padding: 0; */
-}
-ul.list li {
+#list {
     font-size: 16px;
-    list-style-type:none;
 }
 
-ul.list li .fa{
-    cursor: pointer;
+#list_title {
+    margin: 0;
+    padding: 0 0 0 4px;
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    display: block;
+    width: calc(100% - 30px);
 }
-ul.list li .fa-square-o{
+
+#list_icon{
+    cursor: pointer;
+    float: left;
+    margin-top: 2px;
+}
+
+#list_items {
+    margin: 0;
+    padding: 0;
+}
+#list_items li {
+    list-style-type:none;
+    clear: both;
+}
+
+#list_items li .checkbox{
+    cursor: pointer;
+    float: left;
+    margin-top: 5px;
+}
+#list_items li .fa-square-o{
     position: relative;
         right: 2px;
 }
 
-body.shopping-mode .col-md-3, body.shopping-mode nav, body.shopping-mode .header-menu .btn.menu, body.shopping-mode #listColumn h4{
+#list_items li .item_content {
+    margin: 0;
+    padding: 0 0 0 4px;
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    display: block;
+    width: calc(100% - 30px);
+}
+
+#list_items li p.item_content {
+    cursor: pointer;
+}
+
+#addItemContainer {
+    clear: both;
+}
+#addItemContainer a:hover{
+    text-decoration: none;
+}
+
+#list_options .form-group:last-child {
+    margin-bottom: 0;
+}
+
+/**
+ * Shopping mode
+ */
+
+body.shopping-mode .shopping-mode-hide, body.shopping-mode nav{
     display: none!important;
 }
 
@@ -31,7 +84,7 @@ body.shopping-mode #listColumn {
     padding: 5px 10px;
 }
 
-body.shopping-mode .list {
+body.shopping-mode #list_items {
     padding: 0;
     background: none;
     box-shadow: none;

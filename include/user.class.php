@@ -25,6 +25,7 @@ class User extends DatabaseObject
     private $admin;
     private $options = NULL;
     private $accounts = NULL;
+    private $lists = NULL;
     
     public function __construct() {
         parent::__construct("users", Array("uDisplayName", "uEmail", "uLogin", "uPassword", "uLastLogin", "uOptions", "uCreationDate", "uModificationDate"));
@@ -212,6 +213,25 @@ class User extends DatabaseObject
             }
         }
         return $this->accounts;
+    }
+    
+    public function getLists($forceUpdate = false) {
+        if($this->lists == NULL || $forceUpdate) {
+            $this->lists = Array();
+            $database = new Database();
+            $groups = Array();
+            foreach($this->getGroups() as $group) {
+                array_push($groups, $group->getId());
+            }
+            $request = $database->prepare("SELECT * FROM " . ENV_TABLES_PREFIX . "lists WHERE lGroup IN (" . arrayToString($groups, "") . ") ORDER BY lModificationDate DESC;");
+            $request->execute();
+            while($line = $request->fetch()) {
+                $list = new ItemsList();
+                $list->loadFromRow($line);
+                array_push($this->lists, $list);
+            }
+        }
+        return $this->lists;
     }
     
     /**

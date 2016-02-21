@@ -18,13 +18,6 @@
  *****************************************************************************/
 
 $(document).ready(function(){
-    $.post("ajax/accounts.php", {action: "list-accounts"}, function(data){
-        ajaxDebug(data);
-        for(var i in data.list) {
-            debug(data.list[i].aId);
-        }
-    });
-
     //DATEPICKER
     $(".date-container").datepicker({weekStart: 1, format: "dd/mm/yyyy", todayHighlight: true, language:"fr"}).on("changeDate", function(e){
         $(".iDate").val(date("d/m/Y", Math.round(e.date / 1000)));

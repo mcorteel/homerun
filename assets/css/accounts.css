@@ -110,18 +110,6 @@ table.down{
     margin:5px 0;
 }
 
-.icons{
-    padding:0;
-    margin:0;
-    text-align:center;
-}
-.icons li{
-    display:inline-block;
-    width:auto;
-    margin:2px;
-    list-style-type:none;
-}
-
 /**
  * Transfers management
  **/

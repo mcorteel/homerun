@@ -194,6 +194,7 @@ if(!User::getAuth()) {
         <!-- Modals -->
         <div id="modal-debug">
             <i class="fa fa-times close"></i>
+            <i class="fa fa-ban clear"></i>
             <ul>
                 <?php echo $_DEBUG; ?>
             </ul>

@@ -127,7 +127,8 @@ function date(string, timestamp) {
         var date = new Date(timestamp * 1000);
     }
     //Some letters (F and M) need a space after them because of conflicts
-    return string.replace(/Y/, date.getFullYear())//Year
+    return string.replace(/T/, Math.round(date.getTime() / 1000000))//Unix Timestamp
+                 .replace(/Y/, date.getFullYear())//Year
                  .replace(/y/, date.getFullYear().toString().substr(2))//Year (two digits)
                  .replace(/m/, dateAddZero(date.getMonth() + 1))//Month (with zero)
                  .replace(/n/, (date.getMonth() + 1))//Month

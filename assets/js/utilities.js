@@ -58,6 +58,9 @@ $(document).ready(function(){
     $("input[autofocus]").focus();
     
     $("#modal-debug .close").click(toggleDebug);
+    $("#modal-debug .clear").click(function() {
+        $("#modal-debug ul").empty();
+    });
 });
 
 function toggleDebug() {

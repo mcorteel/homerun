@@ -7,6 +7,7 @@
         <div id="menu">
             <h4>Listes</h4>
             <ul class="nav nav-pills nav-stacked" id="menu_lists">
+                <li><a><i class="fa fa-spinner fa-pulse fa-fw"></i> Chargement</a></li>
             </ul>
             <h4>Actions</h4>
             <ul class="nav nav-pills nav-stacked" id="menu_actions">
@@ -16,6 +17,9 @@
     </div>
     <div class="col-md-9" id="defaultColumn">
         <p class="alert alert-info">Choisissez une liste dans le menu</p>
+    </div>
+    <div class="col-md-9" id="loadingColumn">
+        <h4><i class="fa fa-spinner fa-pulse fa-fw"></i> Chargement</h4>
     </div>
     <div class="col-md-9" id="listColumn">
         <h4 class="shopping-mode-hide"><i class="fa fa-list fa-fw" id="list_icon"></i> <input type="text" placeholder="Titre de la liste" id="list_title" /></h4>
@@ -53,13 +57,13 @@
                         <div class="form-group">
                             <label class="control-label">Création</label>
                             <div class="controls">
-                                <div class="form-control" id="list_creation_date"></div>
+                                <div class="form-control" readonly id="list_creation_date"></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Dernière modification</label>
                             <div class="controls">
-                                <div class="form-control" id="list_modification_date"></div>
+                                <div class="form-control" readonly id="list_modification_date"></div>
                             </div>
                         </div>
                     </div>

@@ -58,20 +58,25 @@ switch($_POST['action']) {
         $data['pagesCount'] = ceil($line['c'] / $linesPerPage);
         //New input creation
         $input = new Input($account);
+        unset($_POST['iId']);
         $input->updateFromForm();
         if($account->isLog()) {
             $input->iUser = NULL;
         }
-        $input->create();
-        $array = $input->getValues();
-        $array['iId'] = $input->getId();
-        $array['iAmount'] = $input->getAmount();
-        $array['iUser'] = $input->getUser()->uDisplayName;
-        $array['iDisplayDate'] = timestampToCompact($input->getDate());
-        $array['iIcon'] = $account->getIconOf($input);
-        $data['input'] = $array;
-        $data['status'] = 1;
-        $data['message'] = "Ajouté";
+        if($input->create()) {
+            $array = $input->getValues();
+            $array['iId'] = $input->getId();
+            $array['iAmount'] = $input->getAmount();
+            $array['iUser'] = $input->getUser()->uDisplayName;
+            $array['iDisplayDate'] = timestampToCompact($input->getDate());
+            $array['iIcon'] = $account->getIconOf($input);
+            $data['input'] = $array;
+            $data['status'] = 1;
+            $data['message'] = "Ajouté";
+        } else {
+            $data['status'] = 0;
+            $data['error'] = "Impossible de créer l'entrée";
+        }
         break;
     case "edit":
         $input = new Input($account);
@@ -159,12 +164,13 @@ switch($_POST['action']) {
                 if(preg_match('/([a-z]+) ?(\:|>|<|=|~|<=|>=) ?([a-z0-9\/\.,]+|"[a-z 0-9]+")/', $j, $b)) {
                     $field = $b[1];
                     $relation = trim($b[2]);
+                    debug("Search field '$field' with relation '$relation'");
                     $value = str_replace('"', "", $b[3]);
                     switch($field) {
                         case "prix":
                         case "montant":
                             $relations = Array("=" => "=", ":" => "=", ">" => ">", "<" => "<", "<=" => "<=", ">=" => ">=", "~" => "=");
-                            if(in_array($relation, $relations)) {
+                            if(in_array($relation, array_keys($relations))) {
                                 $relation = $relations[$relation];
                             } else {
                                 $relation = "=";
@@ -173,6 +179,12 @@ switch($_POST['action']) {
                             $rArray['amount'] = str_replace(",", ".", doubleval(str_replace(",", ".", $value)));
                             break;
                         case "date":
+                            $relations = Array("=" => "=", ":" => "LIKE", ">" => ">", "<" => "<", "<=" => "<=", ">=" => ">=", "~" => "LIKE");
+                            if(in_array($relation, array_keys($relations))) {
+                                $relation = $relations[$relation];
+                            } else {
+                                $relation = "LIKE";
+                            }
                             $d = Array();
                             if(preg_match("/([0-3][0-9])\/([0-1]?[0-9])\/([0-9]{4})/", $value, $d)) {
                                 $d[1] = strlen($d[1]) == 1 ? "0" . $d[1] : $d[1];
@@ -182,9 +194,13 @@ switch($_POST['action']) {
                             } elseif(preg_match("/([0-3][0-9])\/([0-1]?[0-9])/", $value, $d)) {
                                 $d[1] = strlen($d[1]) == 1 ? "0" . $d[1] : $d[1];
                                 $d[2] = strlen($d[2]) == 1 ? "0" . $d[2] : $d[2];
-                                $date = "%{$d[2]}-{$d[1]}";
+                                if($relation == "LIKE") {
+                                    $date = "%{$d[2]}-{$d[1]}";
+                                } else {
+                                    $date = date("Y") . "-{$d[2]}-{$d[1]}";
+                                }
                             }
-                            array_push($rCondition, "iDate LIKE :date");
+                            array_push($rCondition, "iDate $relation :date");
                             $rArray['date'] = $date;
                             break;
                         default:
@@ -201,8 +217,8 @@ switch($_POST['action']) {
         array_push($rCondition, "iAccount = :account");
         $rArray['account'] = $account->getId();
         $rCondition = arrayToString($rCondition, "", " AND ");
-        debug($rCondition);
-        debug(print_r($rArray, true));
+        debug("Condition: " . $rCondition);
+        debug("Values: " . print_r($rArray, true));
         //Run search
         $database = new Database();
         if($account->isLog()) {

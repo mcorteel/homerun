@@ -82,6 +82,9 @@ $(document).ready(function(){
                 case 80://p
                     displayPage("previous");
                     break;
+                case 82://r
+                    displayPage("refresh");
+                    break;
                 case 78://n
                     displayPage("next");
                     break;
@@ -213,6 +216,10 @@ function displayPage(n, force) {
     }
     if(n == "previous") {
         n = pageNumber - 1;
+    }
+    if(n == "refresh") {
+        n = pageNumber;
+        force = true;
     }
     n = Math.max(Math.min(n, pagesCount), 1);
     if(n == pageNumber && force !== true) {

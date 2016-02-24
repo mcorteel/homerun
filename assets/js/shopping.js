@@ -164,7 +164,7 @@ function List() {
     this.save = function() {
         this.update();
         if(this.values.lTitle == "") {
-            error("Donnez un titre à cette liste");
+            warning("Donnez un titre à cette liste");
             return false;
         }
         var list = this.values;
@@ -310,6 +310,9 @@ $(document).ready(function() {
         if($(this).parent().hasClass("active")) {
             return false;
         } else {
+            if(!$("#list_save").prop("disabled") && !confirm("Les modifications que vous n'avez pas enregistrées seront perdues. Continuer ?")) {
+                return false;
+            }
             $("#menu li").removeClass("active");
             $(this).parent().addClass("active");
         }
@@ -425,3 +428,9 @@ $(document).ready(function() {
         }
     });
 });
+
+window.onbeforeunload = function() {
+    if(!$("#list_save").prop("disabled")) {
+        return "Les modifications que vous n'avez pas enregistrées seront perdues. Continuer ?";
+    }
+};

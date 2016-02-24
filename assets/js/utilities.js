@@ -122,7 +122,7 @@ function error(text, time) {
     $("#main-info").removeClass();
     $("#main-info").addClass("alert");
     $("#main-info").addClass("alert-danger");
-    $("#main-info").html("<strong>Erreur</strong> " + text);
+    $("#main-info").html("<i class=\"fa fa-exclamation-triangle fa-fw\"></i> " + text);
     setHideMainInfo(time);
 }
 
@@ -140,7 +140,7 @@ function warning(text, time) {
     $("#main-info").removeClass();
     $("#main-info").addClass("alert");
     $("#main-info").addClass("alert-warning");
-    $("#main-info").html("<strong>Warning</strong> " + text);
+    $("#main-info").html("<i class=\"fa fa-exclamation-triangle fa-fw\"></i> " + text);
     setHideMainInfo(time);
 }
 

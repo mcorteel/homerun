@@ -29,7 +29,7 @@
             </ul>
             <div id="addItemContainer" class="shopping-mode-hide">
                 <a href="#" id="item_add"><i class="fa fa-plus fa-fw"></i> Ajouter</a>
-                <button id="list_save" class="btn btn-primary btn-xs pull-right"><i class="fa fa-save fa-fw"></i> Enregistrer</a>
+                <button id="list_save" class="btn btn-primary btn-xs pull-right" disabled="disabled"><i class="fa fa-save fa-fw"></i> Enregistrer</a>
             </div>
         </div>
         <h4 class="shopping-mode-hide">Options</h4>

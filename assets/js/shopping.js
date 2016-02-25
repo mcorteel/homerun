@@ -174,6 +174,7 @@ function List() {
             item.iOrder = i;
             list.items.push(item);
         }
+        $("#list_save").prop("disabled", true).html('<i class="fa fa-spinner fa-pulse fa-fw"></i> En cours...');
         $.ajax({
             url: "ajax/shopping.php",
             method: 'post',
@@ -184,6 +185,7 @@ function List() {
             },
             context: this,
             success: function(data) {
+                $("#list_save").prop("disabled", false).html('<i class="fa fa-save fa-fw"></i> Enregistrer');
                 ajaxDebug(data);
                 if(data.status) {
                     this.values.lId = data.list.lId;
@@ -201,6 +203,7 @@ function List() {
                 }
             },
             error: function() {
+                $("#list_save").prop("disabled", false).html('<i class="fa fa-save fa-fw"></i> Enregistrer');
                 error("Impossible d'enregistrer la liste");
             }
         });
@@ -381,6 +384,7 @@ $(document).ready(function() {
     $("#modal-icons .btn").click(function() {
         currentList.values.lIcon = $(this).data("value");
         $("#list_icon").attr("class", "fa fa-" + currentList.values.lIcon + " fa-fw");
+        currentList.modified();
         $("#modal-icons").modal("hide");
     });
     

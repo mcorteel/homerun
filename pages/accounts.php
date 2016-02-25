@@ -147,94 +147,99 @@ case "view":
  **/
 case "manage":
     ?>
-    <div class="row">
-        <div class="col-md-3">
-            <h3>Gérer les comptes</h3>
-            <ul class="nav nav-pills nav-stacked menu">
-                <h4>Comptes/journaux existants</h4>
-                <?php
-                $accounts = User::getAuth()->getAccounts(true);
-                foreach($accounts as $account) {
-                    if(User::getAuth()->isAdminOf($account->getGroup()->gName)) {
-                        echo "<li><a href=\"{$account->getId()}\"><i class=\"fa fa-{$account->aIcon} fa-fw\"></i> {$account->aName}</a></li>";
+    <div class="header-menu fixed">
+        <span class="title-pull">Gérer les comptes</span>
+        <button class="btn btn-default pull-left" id="drawer_toggle"><i class="fa fa-caret-right"></i></button>
+        <button class="btn btn-default menu pull-right"><i class="fa fa-reorder"></i></button>
+    </div>
+    <div class="container padded-container content">
+        <div class="row">
+            <div class="col-md-3" id="drawer">
+                <ul class="nav nav-pills nav-stacked menu">
+                    <h4>Comptes/journaux existants</h4>
+                    <?php
+                    $accounts = User::getAuth()->getAccounts(true);
+                    foreach($accounts as $account) {
+                        if(User::getAuth()->isAdminOf($account->getGroup()->gName)) {
+                            echo "<li><a href=\"{$account->getId()}\"><i class=\"fa fa-{$account->aIcon} fa-fw\"></i> {$account->aName}</a></li>";
+                        }
                     }
-                }
-                if(!sizeof($account)) {
-                    echo "<li><em>Aucun compte</em></li>";
-                }
-                ?>
-                <h4>Actions</h4>
-                <li><a href="0"><i class="fa fa-plus fa-fw"></i> Créer un compte</a></li>
-                <li><a href="-1"><i class="fa fa-plus fa-fw"></i> Créer un journal</a></li>
-            </ul>
-        </div>
-        <div class="col-md-9">
-            <div class="selection">
-                <h3>&nbsp;</h3>
-                <?php echo UI::info("Choisissez une action dans le menu."); ?>
+                    if(!sizeof($account)) {
+                        echo "<li><em>Aucun compte</em></li>";
+                    }
+                    ?>
+                    <h4>Actions</h4>
+                    <li><a href="0"><i class="fa fa-plus fa-fw"></i> Créer un compte</a></li>
+                    <li><a href="-1"><i class="fa fa-plus fa-fw"></i> Créer un journal</a></li>
+                </ul>
             </div>
-            <div class="wait">
-                <h3>&nbsp;</h3>
-                <p class="message"><i class="fa fa-spinner fa-pulse"></i> Un instant...</p>
-            </div>
-            <div class="edition form-horizontal">
-                <h3></h3>
-                <h4>Informations générales</h4>
-                <div class="form-group">
-                    <label class="control-label col-md-2">Nom</label>
-                    <div class="controls col-md-10">
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default btn-icon aIcon" type="button" data-value="money"><i class="fa fa-money fa-fw"></i></button>
+            <div class="col-md-9">
+                <div class="selection">
+                    <h4>&nbsp;</h4>
+                    <?php echo UI::info("Choisissez une action dans le menu."); ?>
+                </div>
+                <div class="wait">
+                    <h4>&nbsp;</h4>
+                    <p class="message"><i class="fa fa-spinner fa-pulse"></i> Un instant...</p>
+                </div>
+                <div class="edition form-horizontal">
+                    <h4>Informations générales</h4>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Nom</label>
+                        <div class="controls col-md-10">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default btn-icon aIcon" type="button" data-value="money"><i class="fa fa-money fa-fw"></i></button>
+                                </div>
+                                <input type="text" class="form-control aName" />
                             </div>
-                            <input type="text" class="form-control aName" />
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2">Groupe</label>
-                    <div class="controls col-md-10">
-                        <?php
-                        $groups = Array();
-                        foreach(User::getAuth()->getGroups() as $group) {
-                            if(User::getAuth()->isAdminOf($group->gName)) {
-                                $groups[$group->getId()] = $group->gName;
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Groupe</label>
+                        <div class="controls col-md-10">
+                            <?php
+                            $groups = Array();
+                            foreach(User::getAuth()->getGroups() as $group) {
+                                if(User::getAuth()->isAdminOf($group->gName)) {
+                                    $groups[$group->getId()] = $group->gName;
+                                }
                             }
-                        }
-                        echo UI::select("aGroup", $groups, "", "aGroup", true);
-                        ?>
+                            echo UI::select("aGroup", $groups, "", "aGroup", true);
+                            ?>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2">Tags</label>
-                    <div class="controls col-md-10">
-                        <ul class="tags">
-                            <li><button class="btn btn-success add-tag"><i class="fa fa-plus fa-fw"></i></button></li>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Tags</label>
+                        <div class="controls col-md-10">
+                            <ul class="tags">
+                                <li><button class="btn btn-success add-tag"><i class="fa fa-plus fa-fw"></i></button></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group hidden">
+                        <div class="controls col-md-10 col-md-offset-2">
+                            <div class="checkbox">
+                                <label><input type="checkbox" class="aLog"> Créer un journal</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" id="aLimit">
+                        <label class="control-label col-md-2">Limite</label>
+                        <div class="controls col-md-10">
+                            <input type="text" class="form-control aLimit" />
+                        </div>
+                    </div>
+                    <div class="col-md-10 col-md-offset-2 form-actions">
+                        <button class="btn btn-primary">Créer</button>
+                        <button class="btn btn-default cancel">Annuler</button>
+                    </div>
+                    <div class="actions">
+                        <h4>Actions</h4>
+                        <ul class="fa-ul">
+                            <li><a href="#" class="delete"><i class="fa fa-times fa-li"></i>Supprimer ce compte</a></li>
                         </ul>
                     </div>
-                </div>
-                <div class="form-group hidden">
-                    <div class="controls col-md-10 col-md-offset-2">
-                        <div class="checkbox">
-                            <label><input type="checkbox" class="aLog"> Créer un journal</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group" id="aLimit">
-                    <label class="control-label col-md-2">Limite</label>
-                    <div class="controls col-md-10">
-                        <input type="text" class="form-control aLimit" />
-                    </div>
-                </div>
-                <div class="col-md-10 col-md-offset-2 form-actions">
-                    <button class="btn btn-primary">Créer</button>
-                    <button class="btn btn-default cancel">Annuler</button>
-                </div>
-                <div class="actions">
-                    <h4>Actions</h4>
-                    <ul class="fa-ul">
-                        <li><a href="#" class="delete"><i class="fa fa-times fa-li"></i>Supprimer ce compte</a></li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -269,7 +274,7 @@ case "manage":
 case "transfers":
     ?>
     <div class="header-menu fixed">
-        <span class="title">Transferts</span>
+        <span class="title-pull">Transferts</span>
         <span class="pull-right">
         <?php
         $accounts = Array();

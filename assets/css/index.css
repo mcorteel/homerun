@@ -94,8 +94,8 @@ h3.title .btn, .well h3 .btn{
 }
 
 .header-menu{
-    background-color:#DDD;
-    border-bottom:1px solid #CCC;
+    background-color:rgba(210, 210, 210, 0.95);
+    border-bottom:1px solid #BBB;
     padding:5px 15px;
     min-height:45px;
     margin:0;
@@ -154,6 +154,7 @@ h3.title .btn, .well h3 .btn{
 .header-menu .title-pull{
     display: inline-block;
     font-size: 22px;
+    padding-left: 5px;
 }
 
 .modal-body .alert{
@@ -246,7 +247,7 @@ tr.selected {
     background-color: #EEE;
 }
 
-@media (max-width:400px){
+@media (max-width:767px){
   body.menu-contained .navbar-header{
     display:none!important;
   }
@@ -268,7 +269,7 @@ tr.selected {
     display:inline-block;
   }
 }
-@media (max-width:768px){
+@media (max-width:767px){
     .modal{
         padding:0;
     }
@@ -280,30 +281,66 @@ tr.selected {
     #main-info{
         max-width:90%;
     }
+    
+    .container {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 }
 
-#addInputFixed{
-    display:none;
-    font-size:45px;
-    padding:2px 2px 0 0;
-    border-radius:0px 10px 0px 0px;
-    background-color:#EEE;
-    color:#66BC79;
-    opacity:0.3;
-    position:fixed;
-        bottom:0;
-        left:0;
-    z-index:100;
-    height:50px;
-    width:50px;
-    line-height:50px;
-    text-align:center;
-    vertical-align:middle;
-    cursor:pointer;
+/**
+ * Responsive drawer menu
+ */
+
+#drawer_toggle {
+    display: none;
+    width: 35px;
+    text-align: center;
 }
-#addInputFixed:hover{
-    opacity:1;
+#drawer_toggle i {
+    width: auto;
 }
+
+@media(max-width: 767px) {
+    #drawer_toggle {
+        display: inline-block;
+    }
+    body.display_drawer #drawer_toggle i:before{
+        content: "\f0d9";
+    }
+    #drawer {
+        position: fixed;
+            top: 95px;
+            left: 0;
+        height: calc(100% - 95px);
+        overflow-x: auto;
+        width: 250px;
+        padding: 0;
+        z-index: 999;
+        background-color: rgba(210, 210, 210, 0.95);
+        transform:translateX(-250px);
+        transition: transform 0.2s;
+    }
+    #drawer h4{
+        padding: 0 15px;
+    }
+    #drawer li a{
+        border-radius: 0;
+    }
+    body.display_drawer #drawer {
+        transform:translateX(0);
+        transition: transform 0.2s;
+        box-shadow: 2px 0 4px #555;
+    }
+}
+
+@media(max-width: 400px) {
+    #drawer {
+        top: 45px;
+        height: calc(100% - 45px);
+    }
+}
+
 /*********** DATEPICKER ************/
 
 .date-control{

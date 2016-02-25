@@ -45,7 +45,6 @@ function init()
         $(this).parent().addClass("active");
         var id = $(this).attr("href");
         if(id > 0) {
-            $(".edition h3").text("Modifier « " + $(this).text() + " »");
             $(".actions").show();
             $("#aLimit").hide();
             $(".tags li.tag").remove();
@@ -92,7 +91,6 @@ function init()
                 });
             });
         } else {
-            $(".edition h3").text(id == 0 ? "Créer un compte" : "Créer un journal");
             $(".actions").hide();
             $(".aName").val("");
             $(".aIcon").data("value", "money");

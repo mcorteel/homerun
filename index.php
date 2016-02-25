@@ -123,7 +123,7 @@ if(!User::getAuth()) {
             <?php
             } else {
             ?>
-            <p style="text-align:center;"><a href="administration.html" class="btn btn-primary"><i class="fa fa-refresh"></i> Recharger la page</a></p>
+            <p style="text-align:center;"><a href="home.html" class="btn btn-primary"><i class="fa fa-refresh"></i> Recharger la page</a></p>
             </div>
             <?php
             }

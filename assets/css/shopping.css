@@ -72,7 +72,7 @@
  * Shopping mode
  */
 
-body.shopping-mode .shopping-mode-hide, body.shopping-mode nav{
+body.shopping-mode .shopping-mode-hide, body.shopping-mode nav, body.shopping-mode #drawer_toggle, body.shopping-mode .header-menu .menu{
     display: none!important;
 }
 
@@ -84,9 +84,29 @@ body.shopping-mode #listColumn {
     padding: 5px 10px;
 }
 
+body.shopping-mode #list {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0 10px;
+}
+
 body.shopping-mode #list_items {
     padding: 0;
     background: none;
     box-shadow: none;
     border: none;
+}
+
+/**
+ * Drawer menu
+ */
+
+@media(max-width: 767px) {
+    #drawer h4{
+        padding: 0 15px;
+    }
+    #drawer li a{
+        border-radius: 0;
+    }
 }

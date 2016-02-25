@@ -1,5 +1,6 @@
 <div class="header-menu fixed">
     <span class="title-pull">Statistiques</span>
+    <button class="btn btn-default pull-left" id="drawer_toggle"><i class="fa fa-caret-right"></i></button>
     <button class="btn btn-default menu pull-right"><i class="fa fa-reorder"></i></button>
     <span class="pull-right">
         <?php
@@ -12,7 +13,7 @@
     </span>
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3" id="drawer">
         <h4>Séries</h4>
         <div class="form-group">
             <div class="input-group">

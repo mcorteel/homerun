@@ -43,8 +43,10 @@ $(document).ready(function(){
         }
         $(".date-container").datepicker("update", date("d-m-Y", nD));
     });
-
-    $("#addInputFixed").click(showPersonalInputModal);
+    
+    $("#drawer_toggle").click(function() {
+        $("body").toggleClass("display_drawer");
+    });
 });
 
 function showPersonalInputModal() {

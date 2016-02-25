@@ -84,3 +84,13 @@
 .table-responsive {
     margin-bottom: 1em;
 }
+
+#drawer {
+    padding:0px 10px;
+}
+
+@media(max-width: 767px) {
+    .header-menu .title-pull {
+        padding-left: 5px;
+    }
+}

@@ -94,4 +94,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="assets/js/shopping.js"></script>
+<script type="text/javascript" src="assets/js/lists.js"></script>

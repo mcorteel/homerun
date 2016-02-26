@@ -211,12 +211,13 @@ function toEuros(v, opt_html) {
 }
 
 function installApp() {
-    var request = navigator.mozApps.install("http://home.dianeetmax.fr/homerun.webapp");
+    var request = navigator.mozApps.install(ENV_BASE_URL + "/homerun.webapp");
     request.onsuccess = function(){
         $(".install").hide();
         $(".delete").show();
+        info("L'application a bien été installée");
     };
-    request.onerror = function(){
-        //Install failed
+    request.onerror = function(e){
+        error("Impossible d'installer l'application (" + this.error.name + ")");
     };
 }

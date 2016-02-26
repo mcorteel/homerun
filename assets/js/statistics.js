@@ -46,7 +46,7 @@ function displayGraph() {
         ajaxDebug(data);
         $(".options-series").empty();
         //Clear table
-        $("#table thead").html("<th></th>");
+        $("#table thead tr:first").html("<th rowspan=2></th>");
         $("#table tbody").empty();
         //Data plot
         var datasets = [];
@@ -62,7 +62,7 @@ function displayGraph() {
                 var t = "";
                 var m = 0;
                 for(var j = 0 ; j < dataset.data.length ; j++) {
-                    t += "<td>" + toEuros(dataset.data[j], true) + "</td>";
+                    t += "<td>" + toEuros(Math.round(dataset.data[j]), true) + "</td>";
                     m += parseInt(dataset.data[j]);
                 }
                 $("#table tbody").append("<tr><th>" + dataset.label + "</th>" + t + "<td>" + toEuros(Math.round(m / dataset.data.length)) + "</td></tr>");
@@ -71,6 +71,8 @@ function displayGraph() {
         }
         var m = 0;
         var t = "";
+        var y = "";
+        var yL = 0;
         for(var i = 0 ; i < data.labels.length ; i++) {
             var s = 0;
             var d = "";
@@ -80,7 +82,15 @@ function displayGraph() {
             }
             t += "<td>" + toEuros(s, true) + "</td>";
             m += s;
-            $("#table thead").append("<th>" + data.labels[i].replace(" ", "&nbsp;") + "</th>");
+            var month = data.labels[i].substr(0, data.labels[i].length - 5);
+            var year = data.labels[i].substr(-4, 4);
+            if((y != "" && y!= year) || i == data.labels.length - 1) {
+                $("#table thead tr:first").append("<th colspan=" + (yL + (i == data.labels.length - 1 ? 1 : 0))+ ">" + y + "</th>");
+                yL = 0;
+            }
+            y = data.labels[i].substr(-4, 4);
+            yL++;
+            $("#table thead tr:last").append("<th>" + month + "</th>");
         }
         m = Math.round(m / data.labels.length);
         $("#table tbody").append("<tr><th><em>Total</em></th>" + t + "<td>" + toEuros(m, true) + "</td></tr>");
@@ -98,7 +108,7 @@ function displayGraph() {
             });
         });
 
-        $("#table thead").append("<th>Moyenne</th>");
+        $("#table thead tr:last").append("<th>Moyenne</th>");
         $(".options-series i").css("visibility", "visible");
         $(".options-series i:first, .options-series li:not(.disabled) i:last, .options-series li.disabled i").css("visibility", "hidden");
         ctx = document.getElementById("diagram").getContext("2d");

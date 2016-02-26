@@ -2,19 +2,20 @@
     <span class="title-pull">Statistiques</span>
     <button class="btn btn-default pull-left" id="drawer_toggle"><i class="fa fa-caret-right"></i></button>
     <button class="btn btn-default menu pull-right"><i class="fa fa-reorder"></i></button>
-    <span class="pull-right">
-        <?php
-        $accounts = Array();
-        foreach(User::getAuth()->getAccounts() as $account) {
-            $accounts[$account->getId()] = $account->aName;
-        }
-        echo UI::select("account", $accounts, array_key_exists('id', $_GET) ? $_GET['id'] : 0, "account", true);
-        ?>
-    </span>
 </div>
 <div class="row">
     <div class="col-md-3" id="drawer">
-        <h4>Séries</h4>
+        <h4>Compte</h4>
+        <div class="form-group">
+            <?php
+            $accounts = Array();
+            foreach(User::getAuth()->getAccounts() as $account) {
+                $accounts[$account->getId()] = $account->aName;
+            }
+            echo UI::select("account", $accounts, array_key_exists('id', $_GET) ? $_GET['id'] : 0, "account", true);
+            ?>
+        </div>
+        <h4>Données</h4>
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon"><span style="display:inline-block;width:30px;">De</span></span>
@@ -56,7 +57,7 @@
     <div class="col-md-12">
         <div class="table-responsive">
             <table class="table table-bordered table-condensed" id="table">
-                <thead></thead>
+                <thead><tr></tr><tr></tr></thead>
                 <tbody></tbody>
             </table>
         </div>

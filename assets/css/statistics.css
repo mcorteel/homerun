@@ -22,7 +22,6 @@
 }
 
 #diagram{
-    height:200px;
     width:100%;
 }
 
@@ -64,6 +63,23 @@
 }
 .options-series li.disabled .series-label{
     color:#AAA;
+}
+
+#table {
+    border: none;
+}
+#table thead th {
+    text-align: center;
+}
+#table thead tr:first-child th {
+    border-top: 1px solid #ddd;
+}
+#table thead tr th:first-child {
+    border-left: none;
+    border-top: none;
+}
+#table tbody th {
+    border-left: 2px solid #ddd;
 }
 
 #table td{

@@ -60,7 +60,7 @@ if(!User::getAuth()) {
         <script type="text/javascript" src="assets/vendor/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-        <script type="text/javascript" src="assets/vendor/bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="assets/js/bootstrap-datepicker.fr.min.js" charset="UTF-8"></script>
         <script type="text/javascript" src="assets/js/date.js"></script>
         <script type="text/javascript" src="assets/js/utilities.js"></script>
         <script type="text/javascript" src="assets/js/index.js"></script>

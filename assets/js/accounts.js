@@ -170,6 +170,10 @@ $(document).ready(function(){
         }
         displayPage(n);
     });
+    
+    if($(window).width() > 500) {
+        $(".iAmount").replaceWith('<input class="form-control iAmount" type="text">');
+    }
 });
 
 function endSearch() {

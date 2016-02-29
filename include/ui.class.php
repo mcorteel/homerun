@@ -145,4 +145,29 @@ class UI
         }
     }
     
+    public static function iconsModal() {
+        $r = "
+        <div class=\"modal fade\" id=\"modal-icons\">
+            <div class=\"modal-dialog\">
+                <div class=\"modal-content\">
+                    <div class=\"modal-header\">
+                        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>
+                        <h4 class=\"modal-title\">Modifier l'icône</h4>
+                    </div>
+                    <div class=\"modal-body\">
+                        <ul class=\"icons\">";
+        $icons = Array("bullhorn", "shopping-cart", "music", "file-text-o", "anchor", "archive", "arrows", "asterisk", "ban", "bar-chart-o", "barcode", "beer", "bell-o", "bolt", "book", "briefcase", "bug", "building-o", "calendar", "camera", "clock-o", "cloud", "coffee", "compass", "credit-card", "cutlery", "dashboard", "desktop", "envelope-o", "film", "flag", "flask", "gamepad", "gavel", "gift", "glass", "globe", "headphones", "heart", "home", "key", "laptop", "leaf", "lightbulb-o", "magic", "magnet", "microphone", "moon-o", "pencil", "phone", "plane", "print", "puzzle-piece", "road", "rocket", "suitcase", "tags", "tint", "trophy", "truck", "umbrella", "video-camera", "wrench", "bicycle", "bus", "calculator", "soccer-ball-o", "paint-brush", "newspaper-o", "bed", "diamond", "heartbeat", "motorcycle", "ship", "street-view", "subway", "train", "user-secret", "child");
+        sort($icons);
+        foreach($icons as $icon) {
+            $r .= "<li><button class=\"btn btn-default\" data-value=\"$icon\" title=\"$icon\"><i class=\"fa fa-$icon fa-fw\"></i></button></li>";
+        }
+        $r .= "
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>";
+        return $r;
+    }
+    
 }

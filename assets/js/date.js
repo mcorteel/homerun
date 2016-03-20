@@ -144,8 +144,8 @@ function date(string, timestamp) {
                  .replace(/S/, date.getSuffix())//Day's suffix (th, nd, st...)
                  .replace(/D/, date.getDaysName())//Day of the week name (long)
                  .replace(/l/, date.getDaysName(true))//Day of the week name (short)
-                 .replace(/F([^r])?/, date.getMonthsName() + "$1")//Month name (long)
-                 .replace(/M([^oa])?/, date.getMonthsName(true) + "$1");//Month name (short)
+//                  .replace(/F([^ré])?/, date.getMonthsName() + "$1")//Month name (long)
+//                  .replace(/M([^oa])?/, date.getMonthsName(true) + "$1");//Month name (short)
 }
 
 //This functions returns the UNIX timestamp

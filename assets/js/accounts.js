@@ -201,7 +201,9 @@ function clearForm() {
 }
 
 function getLine(t) {
-    return "<tr data-id=\"" + t.iId + "\"><td><i class=\"fa fa-fw fa-" + t.iIcon + "\"></i></td><td class=\"iDate\">" + t.iDisplayDate + "</td><td><a href=\"javascript:editInput(" + t.iId + ");\" class=\"iNotes\">" + (t.iNotes == "" ? "<em>Sans description</em>" : t.iNotes) + "</a></td><td class=\"iAmount\">" + t.iAmount + "</td>" + (t.iUser ? "<td class=\"iUser\">" + t.iUser + "</td>" : "") + "</tr>";
+    var d = new Date(t.iDate);
+    var c = date("l", d).toLowerCase();
+    return "<tr data-id=\"" + t.iId + "\" class=\"day-" + c + "\"><td>" + (t.iAmountValue < 0 ? "<span class=\"fa-overlay\"><i class=\"fa fa-fw fa-" + t.iIcon + "\"></i><i class=\"fa fa-fw fa-arrow-left\"></i></span>" : "<i class=\"fa fa-fw fa-" + t.iIcon + "\"></i>") + "</td><td class=\"iDate\">" + t.iDisplayDate + "</td><td><a href=\"javascript:editInput(" + t.iId + ");\" class=\"iNotes\">" + (t.iNotes == "" ? "<em>Sans description</em>" : t.iNotes) + "</a></td><td class=\"iAmount\">" + t.iAmount + "</td>" + (t.iUser ? "<td class=\"iUser\">" + t.iUser + "</td>" : "") + "</tr>";
 }
 
 function selectLine(id) {
@@ -291,10 +293,6 @@ function sendInput() {
     data.account = account;
     if(isNaN(data.iAmount)) {
         data.iAmount = 0;
-    }
-    if(data.iAmount <= 0) {
-        $(".add-input .form-horizontal").append("<p class=\"alert alert-warning\">Le montant doit être un nombre strictement positif.</p>");
-        return false;
     }
     $(".add-input .wait").show();
     $(".add-input .form-horizontal").hide();

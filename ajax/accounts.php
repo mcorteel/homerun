@@ -141,6 +141,7 @@ switch($_POST['action']) {
                 $line['iUser'] = $line['uDisplayName'];
             }
             $line['iAmount'] = toEuros($t->iAmount);
+            $line['iAmountValue'] = $t->iAmount;
             $line['iIcon'] = $account->getIconOf($t);
             array_push($list, $line);
         }
@@ -239,6 +240,7 @@ switch($_POST['action']) {
             $line['iDisplayDate'] = timestampToCompact($t->getDate());
             $line['iUser'] = $line['uDisplayName'];
             $line['iAmount'] = toEuros($t->iAmount);
+            $line['iAmountValue'] = $t->iAmount;
             $line['iIcon'] = $account->getIconOf($t);
             array_push($list, $line);
         }

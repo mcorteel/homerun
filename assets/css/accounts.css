@@ -187,3 +187,29 @@ table.down{
     font-size:16px;
     min-height:30px;
 }
+
+/**
+ * Days
+ */
+
+.day-mon {
+    border-left: 4px solid hsl(0, 60%, 70%);
+}
+.day-tue {
+    border-left: 4px solid hsl(42, 60%, 70%);
+}
+.day-wed {
+    border-left: 4px solid hsl(84, 60%, 70%);
+}
+.day-thu {
+    border-left: 4px solid hsl(126, 60%, 70%);
+}
+.day-fri {
+    border-left: 4px solid hsl(168, 60%, 70%);
+}
+.day-sat {
+    border-left: 4px solid hsl(210, 60%, 70%);
+}
+.day-sun {
+    border-left: 4px solid hsl(252, 30%, 50%);
+}

@@ -215,5 +215,5 @@ table.down{
 }
 
 .hide-day {
-    visibility: hidden;
+    color: transparent;
 }

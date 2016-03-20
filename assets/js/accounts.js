@@ -288,6 +288,7 @@ function deleteInput(id) {
         $("tr[data-id=" + data.iId + "]").remove();
         $(".delete").hide();
     });
+    updateView();
 }
 
 function sendInput() {

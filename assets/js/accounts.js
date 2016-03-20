@@ -176,6 +176,14 @@ $(document).ready(function(){
     }
 });
 
+function updateView() {
+    $(".table tbody tr").each(function() {
+        if($(this).prev().find(".iDate").text() == $(this).find(".iDate").text()) {
+            $(this).find(".iDate").empty();
+        }
+    });
+}
+
 function endSearch() {
     $(".search").hide();
     $(".search .result").empty();
@@ -207,7 +215,7 @@ function getLine(t) {
 }
 
 function selectLine(id) {
-    $("tr.active").removeClass();
+    $("tr.active").removeClass("active");
     $("tr[data-id=" + id + "]").addClass("active");
     $(".delete").show();
 }
@@ -241,6 +249,7 @@ function displayPage(n, force) {
             for(var i in data.list) {
                 $(".table tbody").append(getLine(data.list[i]));
             }
+            updateView();
             pageNumber = n;
             location.hash = "#page" + n;
             pagesCount = data.pagesCount;

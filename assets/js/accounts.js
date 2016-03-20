@@ -287,8 +287,8 @@ function deleteInput(id) {
         info(data.message);
         $("tr[data-id=" + data.iId + "]").remove();
         $(".delete").hide();
+        updateView();
     });
-    updateView();
 }
 
 function sendInput() {

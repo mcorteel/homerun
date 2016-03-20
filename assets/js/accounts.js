@@ -177,9 +177,10 @@ $(document).ready(function(){
 });
 
 function updateView() {
+    $(".table tbody .hide-day").removeClass("hide-day");
     $(".table tbody tr").each(function() {
         if($(this).prev().find(".iDate").text() == $(this).find(".iDate").text()) {
-            $(this).find(".iDate").empty();
+            $(this).find(".iDate").addClass("hide-day");
         }
     });
 }
@@ -318,6 +319,7 @@ function sendInput() {
             } else {
                 $(".table tbody").prepend(s);
             }
+            updateView();
             $("tr[data-id=" + data.input.iId + "]").click(function(){
                 selectLine($(this).attr("data-id"));
             });
@@ -387,6 +389,7 @@ function search(string) {
             for(var i in data.list) {
                 $(".table tbody").append(getLine(data.list[i]));
             }
+            updateView();
             if(!data.list.length) {
                 $(".table tbody").html("<tr><td colspan=5 class=\"message\">Rien à afficher...</td></tr>");
             }

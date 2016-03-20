@@ -213,3 +213,7 @@ table.down{
 .day-sun {
     border-left: 4px solid hsl(252, 30%, 50%);
 }
+
+.hide-day {
+    visibility: hidden;
+}

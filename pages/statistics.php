@@ -15,19 +15,7 @@
             echo UI::select("account", $accounts, array_key_exists('id', $_GET) ? $_GET['id'] : 0, "account", true);
             ?>
         </div>
-        <h4>Données</h4>
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon"><span style="display:inline-block;width:30px;">De</span></span>
-                <input type="text" class="form-control bDate" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon"><span style="display:inline-block;width:30px;">À</span></span>
-                <input type="text" class="form-control eDate" />
-            </div>
-        </div>
+        <h4>Type</h4>
         <div class="form-group">
             <div class="btn-group btn-group-justified graphType" data-toggle="buttons">
                 <label class="btn btn-default" title="Histogramme">
@@ -39,6 +27,19 @@
                 <label class="btn btn-default" title="Courbe cumulée">
                     <input type="radio" name="graphType" value="area" autocomplete="off"> <i class="fa fa-area-chart"></i>
                 </label>
+            </div>
+        </div>
+        <h4>Période</h4>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><span style="display:inline-block;width:30px;">De</span></span>
+                <input type="text" class="form-control bDate" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><span style="display:inline-block;width:30px;">À</span></span>
+                <input type="text" class="form-control eDate" />
             </div>
         </div>
         <div class="form-group text-right">

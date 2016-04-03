@@ -47,6 +47,7 @@ function displayGraph() {
         $(".options-series").empty();
         //Clear table
         $("#table thead tr:first").html("<th rowspan=2></th>");
+        $("#table thead tr:last").empty();
         $("#table tbody").empty();
         //Data plot
         var datasets = [];
@@ -206,6 +207,8 @@ $(document).ready(function(){
     $(".eDate").datepicker('setDate', new Date());
     displayGraph();
     $(".account").change(function(){displayGraph();});
+    
+    $(".graphType input").change(displayGraph);
     
     $(".replot").click(displayGraph);
     

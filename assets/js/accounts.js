@@ -28,6 +28,7 @@ $(document).ready(function(){
         if(searchActive) {
             $(".search").hide();
         }
+        $(".toggle-search").prop("disabled", true);
         $(".add-input").show();
         clearForm();
         $(".add-input .form-horizontal").show();
@@ -44,6 +45,7 @@ $(document).ready(function(){
     $(".add-input .form-actions .btn-default").click(function(){
         $(".add-input").hide();
         $(".table").show();
+        $(".toggle-search").prop("disabled", false);
         if(searchActive) {
             $(".search").show();
         }
@@ -59,6 +61,7 @@ $(document).ready(function(){
         if(e.keyCode == 27) {//ESC
             $(".add-input").hide();
             $(".table").show();
+            $(".toggle-search").prop("disabled", false);
         }
     });
     
@@ -212,7 +215,7 @@ function clearForm() {
 function getLine(t) {
     var d = new Date(t.iDate);
     var c = date("l", d).toLowerCase();
-    return "<tr data-id=\"" + t.iId + "\" class=\"day-" + c + "\"><td>" + (t.iAmountValue < 0 ? "<span class=\"fa-overlay\"><i class=\"fa fa-fw fa-" + t.iIcon + "\"></i><i class=\"fa fa-fw fa-arrow-left\"></i></span>" : "<i class=\"fa fa-fw fa-" + t.iIcon + "\"></i>") + "</td><td class=\"iDate\">" + t.iDisplayDate + "</td><td><a href=\"javascript:editInput(" + t.iId + ");\" class=\"iNotes\">" + (t.iNotes == "" ? "<em>Sans description</em>" : t.iNotes) + "</a></td><td class=\"iAmount\">" + t.iAmount + "</td>" + (t.iUser ? "<td class=\"iUser\">" + t.iUser + "</td>" : "") + "</tr>";
+    return "<tr data-id=\"" + t.iId + "\" class=\"day-" + c + "\"><td>" + (t.iAmountValue < 0 ? "<i class=\"fa fa-fw fa-" + t.iIcon + " fa-overlay-arrow-left\"></i>" : "<i class=\"fa fa-fw fa-" + t.iIcon + "\"></i>") + "</td><td class=\"iDate\">" + t.iDisplayDate + "</td><td><a href=\"javascript:editInput(" + t.iId + ");\" class=\"iNotes\">" + (t.iNotes == "" ? "<em>Sans description</em>" : t.iNotes) + "</a></td><td class=\"iAmount\">" + t.iAmount + "</td>" + (t.iUser ? "<td class=\"iUser\">" + t.iUser + "</td>" : "") + "</tr>";
 }
 
 function selectLine(id) {
@@ -283,6 +286,7 @@ function deleteInput(id) {
     $(".add-input").show();
     $.post("ajax/accounts.php", {action: "delete", account: account, iId: id}, function(data){
         $(".add-input").hide();
+        $(".toggle-search").prop("disabled", false);
         $(".table").show();
         info(data.message);
         $("tr[data-id=" + data.iId + "]").remove();
@@ -310,6 +314,7 @@ function sendInput() {
     $.post("ajax/accounts.php", data, function(data){
         ajaxDebug(data);
         $(".add-input").hide();
+        $(".toggle-search").prop("disabled", false);
         $(".table").show();
         info(data.message);
         if(data.action == "create") {
@@ -351,6 +356,7 @@ function editInput(id) {
     $(".add-input h3").text("Modifier une entrée");
     $(".add-input .wait").show();
     $(".add-input").show();
+    $(".toggle-search").prop("disabled", true);
     toggleDatepicker(false);
     clearForm();
     $.post("ajax/accounts.php", {action: "get", account: account, iId: id}, function(data){
@@ -377,7 +383,7 @@ function editInput(id) {
 var searchActive = false;
 
 function search(string) {
-  searchActive = true;
+    searchActive = true;
     if(string === undefined) {
         var string = $(".search input").val();
     }
@@ -397,7 +403,11 @@ function search(string) {
             $(".previous-page, .next-page").prop("disabled", true);
             //Page initialization
             $(".delete").hide();
-            $(".result").html(frenchPlural("%n résultat%s, total : " + data.total, data.hits));
+            if(data.hits > 100) {
+                $(".result").html(frenchPlural("<span title=\"Les résultats supplémentaires ne sont pas affichés\">100/%n résultat%s</span>, total : " + data.total, data.hits));   
+            } else {
+                $(".result").html(frenchPlural("%n résultat%s, total : " + data.total, data.hits));
+            }
             $("tr[data-id]").click(function(){
                 selectLine($(this).attr("data-id"));
             });

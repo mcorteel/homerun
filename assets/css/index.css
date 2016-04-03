@@ -46,17 +46,15 @@ body {
     padding:10px;
 }
 
-.fa-overlay i:first-child{
-    position: absolute;
-    margin-top: 3px;
-}
-.fa-overlay i:last-child{
-    font-size: 11px;
+.fa-overlay-arrow-left:after {
+    font-family: FontAwesome;
+    font-size: 70%;
+    content: "\f060";
+    position: relative;
+        left: -40%;
+        top: 1px;
     color: #EEE;
     text-shadow: 0px 0px 1px #000;
-    position: relative;
-        top: 4px;
-        left: 7px;
 }
 
 #main-info{

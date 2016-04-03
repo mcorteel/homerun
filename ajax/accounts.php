@@ -187,19 +187,27 @@ switch($_POST['action']) {
                                 $relation = "LIKE";
                             }
                             $d = Array();
-                            if(preg_match("/([0-3][0-9])\/([0-1]?[0-9])\/([0-9]{4})/", $value, $d)) {
+                            if(preg_match("/^([0-3][0-9])[\/\.-]([0-1]?[0-9])[\/\.-]([0-9]{4})$/", $value, $d)) {
+                                // e.g. 02/04/2016
                                 $d[1] = strlen($d[1]) == 1 ? "0" . $d[1] : $d[1];
                                 $d[2] = strlen($d[2]) == 1 ? "0" . $d[2] : $d[2];
                                 $d[3] = strlen($d[3]) == 1 ? "0" . $d[3] : $d[3];
                                 $date = "{$d[3]}-{$d[2]}-{$d[1]}";
-                            } elseif(preg_match("/([0-3][0-9])\/([0-1]?[0-9])/", $value, $d)) {
+                            } elseif(preg_match("/^([0-3][0-9])[\/\.-]([0-1]?[0-9])$/", $value, $d)) {
+                                // e.g. 02/04
                                 $d[1] = strlen($d[1]) == 1 ? "0" . $d[1] : $d[1];
                                 $d[2] = strlen($d[2]) == 1 ? "0" . $d[2] : $d[2];
-                                if($relation == "LIKE") {
-                                    $date = "%{$d[2]}-{$d[1]}";
-                                } else {
+                                if($relation == "LIKE") {// Any year
+                                    $date = "%-{$d[2]}-{$d[1]}";
+                                } else {// This year only
                                     $date = date("Y") . "-{$d[2]}-{$d[1]}";
                                 }
+                            } elseif(preg_match("/^([0-3][0-9])[\/\.-]([0-9]{4})$/", $value, $d)) {
+                                // e.g. 04/2016
+                                $d[1] = strlen($d[1]) == 1 ? "0" . $d[1] : $d[1];
+                                $d[2] = strlen($d[2]) == 1 ? "0" . $d[2] : $d[2];
+                                $relation = "LIKE";
+                                $date = "{$d[2]}-{$d[1]}-%";
                             }
                             array_push($rCondition, "iDate $relation :date");
                             $rArray['date'] = $date;
@@ -212,8 +220,13 @@ switch($_POST['action']) {
                 }
             }
         } else {
-            array_push($rCondition, "iNotes LIKE :notes");
-            $rArray['notes'] = "%$searchString%";
+            if(preg_match_all('/(-?[0-9]+((,|\.)[0-9]+)?)/', $searchString, $a)) {
+                array_push($rCondition, "iAmount LIKE :amount");
+                $rArray['amount'] = (float) str_replace(",", ".", $a[0][0]);
+            } else {
+                array_push($rCondition, "iNotes LIKE :notes");
+                $rArray['notes'] = "%$searchString%";
+            }
         }
         array_push($rCondition, "iAccount = :account");
         $rArray['account'] = $account->getId();

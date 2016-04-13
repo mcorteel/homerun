@@ -64,5 +64,5 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="assets/vendor/Chart.js/Chart.min.js"></script>
+<script type="text/javascript" src="assets/vendor/Chart.js/dist/Chart.min.js"></script>
 <script type="text/javascript" src="assets/js/statistics.js"></script>

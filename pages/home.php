@@ -96,7 +96,7 @@ if(!User::getAuth()) {
                             $s += $sum;
                         }
                         echo "<div class=\"progress\"><div class=\"progress-bar progress-bar-" . ($s >= $account->aLimit ? "danger" : ($s >= 0.8 * $account->aLimit ? "warning" : "success")) . "\" style=\"width:" . str_replace(",", ".", $s / $account->aLimit * 100) . "%\"><span>" . round($s / $account->aLimit * 100) . "%</span></div></div>";
-                    } else {
+                    } elseif(!$account->isLog()) {
                         $max = 0;
                         $max2 = 0;
                         $sum2 = 0;

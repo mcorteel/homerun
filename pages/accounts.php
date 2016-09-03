@@ -63,14 +63,14 @@ case "view":
                 <div class="form-group">
                     <label class="control-label col-md-4">Type</label>
                     <div class="controls col-md-8 iType">
-                        <div class="row" style="margin: 0 -5px;">
+                        <div class="row" style="margin: 0 -5px;" data-toggle="buttons">
                             <?php
                             foreach($account->getTags() as $tag)
                             {
                                 ?>
-                                <div class="col-xs-4" data-toggle="buttons" style="padding: 0 5px; margin-bottom: 5px;">
+                                <div class="col-xs-4" style="padding: 0 5px; margin-bottom: 5px;">
                                     <label class="btn btn-block btn-default<?php if(!$i++) echo " active"; ?>">
-                                        <input type="radio" name="iType" value="<?php echo $tag->getId(); ?>"><?php echo $tag->tName; ?>
+                                        <input type="radio" class="hidden" name="iType" value="<?php echo $tag->getId(); ?>"><?php echo $tag->tName; ?>
                                     </label>
                                 </div>
                                 <?php

@@ -63,7 +63,7 @@ case "view":
                 <div class="form-group">
                     <label class="control-label col-md-4">Type</label>
                     <div class="controls col-md-8">
-                        <span class="btn-group btn-group-justified iType" data-toggle="buttons">
+                        <span class="iType" data-toggle="buttons">
                         <?php
                         foreach($account->getTags() as $tag)
                         {

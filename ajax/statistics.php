@@ -49,8 +49,8 @@ $data['graphType'] = User::getAuth()->getOption("statsGraphType");
 
 User::getAuth()->save();
 
-$fillColors = ["#4AA265", "#FF952B", "#825CF1"];
-$strokeColors = ["#2E653E", "#CD7822", "#583FA4"];
+$fillColors = ["#4AA265", "#FF952B", "#825CF1", "#aaaa00", "#63bcff", "#ffaaff", "#eafc20"];
+$strokeColors = ["#2E653E", "#CD7822", "#583FA4", "#848400", "#4d92c6", "#c281c2", "#c4d31b"];
 
 /**
  * Handle request

@@ -142,7 +142,7 @@ $(document).ready(function(){
     });
     
     $("#modal-icons .btn").click(function(){
-        $(".btn-icon.active").data("value", $(this).data("value")).find("i").attr("class", "fa fa-" + $(this).data("value") + " fa-fw");
+        $(".btn-icon.active").attr("data-value", $(this).data("value")).find("i").attr("class", "fa fa-" + $(this).data("value") + " fa-fw");
         $("#modal-icons").modal("hide");
     });
     $("#modal-icons").on("hide.bs.modal", function(){

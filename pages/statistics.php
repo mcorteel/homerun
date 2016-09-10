@@ -64,5 +64,5 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="assets/vendor/Chart.js/dist/Chart.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>
 <script type="text/javascript" src="assets/js/statistics.js"></script>
